@@ -116,21 +116,91 @@
 
 // 등수구하기 
 
-function solution(N, arr) {
-    let answer = Array(N).fill(1);
-    for(let i = 0; i < N; i++){
-        for(let j = 0; j < N; j++ ) {
-            if(arr[i] < arr[j]) {
-                answer[i]++;
-            }
+// function solution(N, arr) {
+//     let answer = Array(N).fill(1);
+//     for(let i = 0; i < N; i++){
+//         for(let j = 0; j < N; j++ ) {
+//             if(arr[i] < arr[j]) {
+//                 answer[i]++;
+//             }
 
-        }
+//         }
 
-    }
-    return answer;
-}
+//     }
+//     return answer;
+// }
 
-let arr = [87, 89, 92, 100, 76];
-console.log(solution(5, arr));
+// let arr = [87, 89, 92, 100, 76];
+// console.log(solution(5, arr));
 
-// 처음 값 
+// // 6.격자판 최대합
+
+
+// 내가 푼 방식 
+
+// function solution(N, arr) {
+//     let answer = 0;
+//     arr.unshift(Array(N).fill(0));
+//     arr.push(Array(N).fill(0));
+
+//     for(let i = 0; i < N + 2; i++) {
+//         arr[i].unshift(0);
+//         arr[i].push(0);
+//     }
+
+//     for(let i = 1; i < N + 1; i++) {
+//         for(let j = 1; j < N + 1; j++) {
+//             let left = arr[i][j - 1];
+//             let right = arr[i][j + 1];
+//             let top = arr[i - 1][j];
+//             let down = arr[i + 1][j];
+//             let num = arr[i][j];
+
+//             if(num > top && num > down && num > left && num > right) {
+//                 answer++;
+//             }
+//         }
+//     } return answer;
+// }
+
+// let N = 6;
+// let list=[[7, 5, 3, 2, 2, 3], 
+//          [2, 3, 7, 1, 6, 1],
+//          [3, 7, 2, 5, 3, 4],
+//          [4, 4, 3, 6, 4, 1],
+//          [5, 8, 7, 3, 5, 2],
+//          [3, 2, 1, 7, 3, 4]];
+
+// console.log(solution(N, list));
+
+//
+
+// function solution(arr) {
+//     let answer = 0;
+//     let n = arr.length;
+//     let dx = [-1, 0, 1, 0];
+//     let dy = [0, 1, 0, -1];
+//     for(let i = 0; i < n; i++) {
+//         for(let j = 0; j < n; j++) {
+//             let flag = 1;
+//             for(let k = 0; k < 4; k++) {
+//                 let nx = i + dx[k]; //갈려는 행좌표
+//                 let ny = j + dy[k]; //갈려는 열좌표
+//                 if(nx >= 0 && nx < n && ny >= 0 && ny < n && arr[nx][ny] >= arr[i][j]) {
+//                     flag = 0;
+//                     break;
+//                 } 
+//             }
+//             if(flag) answer++;
+//         }
+//     }
+//     return answer;
+// }
+
+// let list=[[5, 3, 7, 2, 3], 
+//           [3, 7, 1, 6, 1],
+//           [7, 2, 5, 3, 4],
+//           [4, 3, 6, 4, 1],
+//           [8, 7, 3, 5, 2]];
+
+// console.log(solution(list));
