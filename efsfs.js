@@ -180,6 +180,7 @@
 //     let n = arr.length;
 //     let dx = [-1, 0, 1, 0];
 //     let dy = [0, 1, 0, -1];
+
 //     for(let i = 0; i < n; i++) {
 //         for(let j = 0; j < n; j++) {
 //             let flag = 1;
@@ -204,3 +205,226 @@
 //           [8, 7, 3, 5, 2]];
 
 // console.log(solution(list));
+
+
+// 섹션 3 1.회문문자열
+
+// for문을 이용해 직접 비교하는 방법
+// function solution(s){
+//     let answer = 'YES';
+//     s = s.toUpperCase();
+//     let len = s.length;
+//     for(let i = 0; i < Math.floor(len / 2); i++) {
+//         if(s[i] !== s[len -1 -i]) {
+//             answer = "NO";
+//         }
+//     }
+//     return answer;
+// }
+
+// let str="BbobB";
+// console.log(solution(str));
+
+
+// reverse를 이용한 방법 배열로나눠줘야한다.
+// function solution(s){
+//     let answer = 'YES';
+//     s = s.toUpperCase();
+//     let len = s.length;
+//     console.log(s)
+//     if(s.split('').reverse().join('') !== s) return "NO";
+//     return answer;
+// }
+
+// let str="Bboba";
+// console.log(solution(str));
+
+// 3 - 2 유효한 팰린드롬
+
+// 내가 한 방법
+// function solution(s) {
+//     let answer = "YES";
+//     let word = ''; // s의 문자부분
+//     let word2 = '';
+//     s = s.toUpperCase().split('');
+//     for(let i = 0; i < s.length; i++) {
+//         if(s[i].charCodeAt() >= 65 && s[i].charCodeAt() <= 100) {
+//             word += s[i];
+//         }
+//     }
+//     s = s.reverse();
+//     for(let i = 0; i < s.length; i++) {
+//         if(s[i].charCodeAt() >= 65 & s[i].charCodeAt() <= 100) {
+//             word2 += s[i];
+//         }
+//     }
+
+//     for(let i = 0; i < Math.floor(word.length / 2); i++) {
+//         if(word[i] !== word2[i]) {
+//             return "NO";
+//         }
+//     }
+//     console.log(word, word2);
+//     return answer;
+// }
+            
+// let str="found7, time: study; Yduts; emit, 7Dnuof";
+// console.log(solution(str));
+
+// 정규식을 이용한 방법
+
+// function solution(s) {
+//     let answer = "YES";
+//     s = s.toLowerCase().replace(/[^a-z]/g, '');
+//     // /[^a-z]/g, '') 꺽쇠는 부정 소문자 a~z까지 아닌것들을 글로벌로 찾아서 ''빈문자열로바꿔줘라.
+//     if(s.split('').reverse().join('')!== s) {
+//         return "NO";
+//     }
+//     return answer;
+// }
+
+// let str = "found7, time: study; Yduts; emit. 7Dnuof";
+// console.log(solution(str));
+
+// 3-3 숫자만 추출
+
+// // 정규표현식
+// function solution(str){
+//     let answer = '';
+//     str = str.replace(/[^0-9]/g, '');
+//     console.log(str);
+//     return parseInt(str);
+// }
+
+// function solution(str){
+//     let answer = 0;
+//     for(let x of str){
+//         if(!isNaN(x)) answer = answer * 10 + Number(x);
+//     } // isNaN(x) 문자이면 1(true) 아니면 0
+//     // !isNaN(x)은 숫자이면 1이나온다.
+//     return parseInt(answer);
+// }
+// let str="g0en2T0s8eSoft";
+// console.log(solution(str));
+
+// 3 - 4 가장짧은 문자거리
+
+// function solution(s, t){
+//     let answer = [];
+//     let P = 1000;
+//     for(let i = 0; i < s.length; i++) {
+//         if(s[i] === t) { 
+//             P = 0;
+//             answer.push(P);
+//         } else {
+//             P++;
+//             answer.push(P);
+//         }
+//     }
+//     P = 1000;
+//     for(let i = s.length - 1; i >= 0; i--) {
+//         if(s[i] === t) {
+//             P = 0;
+//         }
+//         else {
+//             P++
+//             answer[i] = Math.min(answer[i], P); 
+//         }
+//     }
+//     return answer;
+// }
+
+// let str="teachermode";
+// console.log(solution(str, 'e'));
+
+
+// 변수를 잡는다. 큰값으로 P
+// index[0] 부터 알파벳e가아니면 p를++ 한다.
+// e 를 만나면 0으로해준다.
+
+
+
+// function solution (s, t) {
+//     let answer = [];
+//     let p = 1000;
+
+//     // 각자의 숫자에서 왼쪽 e 까지의 거리
+//     for(let x of s) {
+//         if(x === t) {
+//             p = 0;
+//             answer.push(p);
+//         } else {
+//             p++;
+//             answer.push(p);
+//         }
+//     }
+
+//         // 각자의 숫자에서 오른쪽 e 까지의 거리
+//     p = 0;
+//     for(let i = s.length - 1; i >= 0; i--) {
+//         if(s[i] === t) {
+//             p = 0;
+//         } else {
+//             p++
+//             answer[i] = Math.min(answer[i], p);
+//             // 작은수를 answer[i]로 해준다.
+//         }
+//     }
+//     return answer;
+// }
+// let str="teachermode";
+// console.log(solution(str, 'e'));
+
+// 3 - 5 문자열 압축
+
+// 내가 푼 방식
+// function solution(s){
+//     let answer = '';
+//     let count = 1;
+//     let word = s[0];
+
+//     for(let i = 1; i < s.length + 1; i++) {
+//         if(s[i] === word) {
+//             count++;
+//         } else {
+//             if(count > 1) {
+//                 answer += word + String(count);
+//                 count = 1;
+//                 word = s[i];
+//             } else {
+//                 answer += word;
+//                 word = s[i];
+//             }
+//         }
+//     }
+//     return answer;
+// }
+
+// let str="KKHSSSSSSSE";
+// console.log(solution(str));
+// // 출력예제 K2HS7E
+
+//  solution 2 (내가 푼것은 아님)
+// function solution(s) {
+//     let answer = "";
+//     let cnt = 1;
+//     s = s + " ";
+//     for(let i = 0; i < s.length - 1; i++) {
+//         if(s[i] === s[i + 1]) cnt++;
+//         else {
+//             answer += s[i];
+//             if(cnt > 1 ) answer += String(cnt);
+//             cnt = 1;
+//         }
+//     }
+
+//     return answer;
+// }
+
+// let str="KKHSSSSSSSE";
+// console.log(solution(str));
+// // 출력예제 K2HS7E
+
+
+
+
