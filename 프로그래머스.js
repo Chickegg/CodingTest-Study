@@ -46,11 +46,11 @@
 
 // 문자로 푼방법
 
-function solution(n) {
-    const answer = String(n).split('').reverse().map((ele) => parseInt(ele));
-    return answer;
-}
+// function solution(n) {
+//     const answer = String(n).split('').reverse().map((ele) => parseInt(ele));
+//     return answer;
+// }
 
-const n = 12345;
-console.log(solution(n));
+// const n = 12345;
+// console.log(solution(n));
 
