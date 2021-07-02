@@ -836,3 +836,137 @@
 // console.timeEnd('calculatingTime');
 // // calculatingTime: 73.687255859375 ms
 
+/// 5 - 5 학급 회장(해쉬); new Map, Map.set(key, value), .get().has()
+
+// function solution(s){  
+//     let answer;
+//     let Hash = new Map();
+//     for(let x of s) {
+//         if(Hash.has(x)) {
+//             Hash.set(x, Hash.get(x) + 1) // 기존의 value값을 가져오는 get에 + 1한것을 set을사용하여 지정해준다.
+//         }  else Hash.set(x, 1);
+//     }
+
+//     let max = Number.MIN_SAFE_INTEGER; // 작은 수 지정
+    
+//     for(let [key, value] of Hash) { // for .. of 문을 이렇게도 사용가능하구나..
+//         if(value > max) {
+//             max = value;
+//             answer = key;
+//         }
+//     }
+//     return answer;       
+// }
+
+// let str="BACBACCACCBDEDE";
+// console.log(solution(str));
+
+// 5 - 6 아나그램(해쉬) 
+// 내가푼 방법 map을 2개를 만들어줘서 그둘을 서로 비교하는 방법 for문을 3번돌아야한다.
+// 길이가 다른상황에서도 비교가능하다.
+// function solution(str1, str2){
+//     answer = "YES";
+//     let Hash1 = new Map();
+//     let Hash2 = new Map();
+
+//     for(let x of str1) {
+//         if(Hash1.has(x)) {
+//             Hash1.set(x, Hash1.get(x) + 1)
+//         } else {
+//             Hash1.set(x, 1);
+//         }
+//     }
+//     for(let x of str2) {
+//         if(Hash2.has(x)) {
+//             Hash2.set(x, Hash2.get(x) + 1)
+//         } else {
+//             Hash2.set(x, 1);
+//         }
+//     }
+//     for(let [key, value] of Hash1) {
+//         if(Hash1.get(key) !== Hash2.get(key)) {
+//             answer = "NO";
+//             break;
+//         }
+//     }
+//     console.log(Hash1, Hash2);
+//     return answer;
+// }
+
+// let a="AbaAeCez";
+// let b="baeeACA";
+// console.log(solution(a, b));
+
+// let a = "abaaCD"
+// let b = "Caaabbb"
+// console.log(solution(a, b));
+
+
+// Map을 하나만 지정해주고 str1을 그곳에넣어준뒤 그 map에 str2의 요소들을 has() 가지고있지 않고나 || (또는) get(x) 가 0이되면 NO을 반환받는다.
+// 그러기 위해서 sH가 str2의 1개이상 가지고 있을 경우에는 sH에서 -1을 해준다.
+// for문을 2번만 돌아주면 된다.
+// function solution(str1, str2){
+//     let answer="YES"; 
+//     let sH = new Map();
+//     for(let x of str1){
+//         if(sH.has(x)) sH.set(x, sH.get(x)+1);
+//         else sH.set(x, 1);
+//     }
+//     for(let x of str2){
+//         if(!sH.has(x) || sH.get(x)==0) return "NO";
+//         sH.set(x, sH.get(x)-1);
+//     }
+//     return answer;
+// }
+
+// let a="AbaAeC";
+// let b="baeeACA";
+// console.log(solution(a, b));
+
+
+function solution(str1, str2) {
+    let answer = 0;
+    let Hash = new Map();
+    let list = "";
+    for(let i = 0; i <= str1.length; i++) { // str1의 각요소들을 x로지정해주고
+        if(list.length === str2.length) { // list의 길이가 str2의길이와같아진다면?
+            let OX = "O"
+            Hash.clear();
+
+            for(let x of list) { // list를 Map으로 바꾸어 해시로 나눠준다.
+                if(Hash.has(x)) {
+                    Hash.set(x, Hash.get(x) + 1);
+                } else {
+                    Hash.set(x, 1);
+                }
+            }
+
+            for(let x of str2) { // str2의 요소들을 Hash와 비교
+                if(!Hash.get(x) || Hash.get(x) === 0) {
+                    OX = "X";
+                    break; // 아나그램이 아니면 for문을 벗어나고
+                } else {
+                    Hash.set(x, Hash.get(x) - 1);
+                }
+            }
+
+            if(OX === "O") {
+                answer++;
+                list = str1[i - 3] + str1[i - 2] + str1[i - 1];
+                } 
+                else {
+                list = str1[i - 3] + str1[i - 2] + str1[i - 1];
+            }
+        }
+        list += str1[i];
+    }
+    return answer;
+}
+let a = "bacaAacba";
+let b = "abca";
+console.log(solution(a, b));
+
+// 풀기전 나의 풀이생각.
+// 우선 슬라이딩윈도우를 통해서 str2와 같은 길이까지 str1의 문자열만큼 더해주고 
+// str2의 각요소들을 str1의 hash 와 동일해서 아나그램이라면 count++ 해주고
+// 그것이 끝나면 str1에 마지막에 그다음남은 문자를더해주고 그전의 문자는 지워준다 그리고 또 비교
