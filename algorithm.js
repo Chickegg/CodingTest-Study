@@ -924,49 +924,123 @@
 // console.log(solution(a, b));
 
 
-function solution(str1, str2) {
-    let answer = 0;
-    let Hash = new Map();
-    let list = "";
-    for(let i = 0; i <= str1.length; i++) { // str1의 각요소들을 x로지정해주고
-        if(list.length === str2.length) { // list의 길이가 str2의길이와같아진다면?
-            let OX = "O"
-            Hash.clear();
+// function solution(str1, str2) {
+//     let answer = 0;
+//     let Hash = new Map();
+//     let list = "";
+//     for(let i = 0; i <= str1.length; i++) { // str1의 각요소들을 x로지정해주고
+//         if(list.length === str2.length) { // list의 길이가 str2의길이와같아진다면?
+//             let OX = "O"
+//             Hash.clear();
 
-            for(let x of list) { // list를 Map으로 바꾸어 해시로 나눠준다.
-                if(Hash.has(x)) {
-                    Hash.set(x, Hash.get(x) + 1);
-                } else {
-                    Hash.set(x, 1);
-                }
-            }
+//             for(let x of list) { // list를 Map으로 바꾸어 해시로 나눠준다.
+//                 if(Hash.has(x)) {
+//                     Hash.set(x, Hash.get(x) + 1);
+//                 } else {
+//                     Hash.set(x, 1);
+//                 }
+//             }
 
-            for(let x of str2) { // str2의 요소들을 Hash와 비교
-                if(!Hash.get(x) || Hash.get(x) === 0) {
-                    OX = "X";
-                    break; // 아나그램이 아니면 for문을 벗어나고
-                } else {
-                    Hash.set(x, Hash.get(x) - 1);
-                }
-            }
+//             for(let x of str2) { // str2의 요소들을 Hash와 비교
+//                 if(!Hash.get(x) || Hash.get(x) === 0) {
+//                     OX = "X";
+//                     break; // 아나그램이 아니면 for문을 벗어나고
+//                 } else {
+//                     Hash.set(x, Hash.get(x) - 1);
+//                 }
+//             }
 
-            if(OX === "O") {
-                answer++;
-                list = str1[i - 3] + str1[i - 2] + str1[i - 1];
-                } 
-                else {
-                list = str1[i - 3] + str1[i - 2] + str1[i - 1];
-            }
-        }
-        list += str1[i];
-    }
-    return answer;
-}
-let a = "bacaAacba";
-let b = "abca";
-console.log(solution(a, b));
+//             if(OX === "O") {
+//                 answer++;
+//                 list = str1[i - 3] + str1[i - 2] + str1[i - 1];
+//                 } 
+//                 else {
+//                 list = str1[i - 3] + str1[i - 2] + str1[i - 1];
+//             }
+//         }
+//         list += str1[i];
+//     }
+//     return answer;
+// }
+// let a = "bacaAacba";
+// let b = "abca";
+// console.log(solution(a, b));
 
 // 풀기전 나의 풀이생각.
 // 우선 슬라이딩윈도우를 통해서 str2와 같은 길이까지 str1의 문자열만큼 더해주고 
 // str2의 각요소들을 str1의 hash 와 동일해서 아나그램이라면 count++ 해주고
 // 그것이 끝나면 str1에 마지막에 그다음남은 문자를더해주고 그전의 문자는 지워준다 그리고 또 비교
+
+// 6 - 1 스택
+// function solution(s) {
+//     let answer = "YES";
+//     let stack = [];
+//     if(s.length % 2 === 1) return "NO";
+
+//     for(let x of s ) {
+//         if(x ==='(') {
+//             stack.push(x);
+//         } else {
+//             if(stack.length === 0) return "NO";
+//             stack.pop();
+//         }
+//     }
+//     console.log(stack);
+//     if(stack.length > 0) return "NO";
+//     return answer;
+// }
+// let a = "()()(";
+// console.log(solution(a));
+
+// function solution(s) {
+//     let answer;
+//     stack = [];
+//     for(let x of s) {
+//         if(x === ')') {
+//             while(stack.pop() !== '(');
+//         }
+//         else stack.push(x);
+//     }
+//     return answer = stack.join('');
+// }
+
+// let str="(A(BC)D)EF(G(H)(IJ)K)LM(N)";
+// console.log(solution(str));
+
+/// 크레인 뽑기 대망의 !!
+function solution(board, moves){
+    let box = [];
+    for(let x of moves) { // moves가 들어오는 부분
+        // 만일 moves[i] === 1이다? 그럼 뒤에 for문에서 board의 index 1번 부분들을
+        //확인하여서 0이아닌 숫자가 오면 answer 에 push해준다
+        for(let i = 0; i < board.length; i++) { 
+            if(board[i][x - 1] > 0) {
+                box.push(board[i][x - 1]);
+                board[i][x - 1] = 0;
+                break;
+            }
+        }
+        console.table(box);
+    }
+    let count = 0;
+    let i = 0;
+    // while문을 돌면서 겹치는 ele가 있으면 그두개를 제거하고 다시이전으로 돌아가서 시간한다.
+    while(i < box.length) {
+        if(box[i] === box[i + 1]) {
+            box.splice(i, 2);
+            count += 2;
+            i -= 1;
+        } else {
+            i++;
+        }
+    }
+    return count;
+}
+
+let a=[[0,0,0,0,0],
+       [0,0,1,0,3],
+       [0,2,5,0,1],
+       [4,2,4,4,2],
+       [3,5,1,3,1]];
+let b=[1, 5, 3, 5, 1, 2, 1, 4];
+console.log(solution(a, b));
