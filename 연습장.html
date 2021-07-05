@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>후위식 연산(스택)</title>
+    </head>
+    <body>
+        <script>
+            function ASMD(a, b, c) {
+                if(c === '+') return a + b;
+                if(c === '-') return a - b;
+                if(c === '*') return a * b;
+                if(c === '/') return a / b;
+            }
+            function solution(s) {
+                let answer;
+                let stack = [];
+
+                for(let x of s) {
+                    if(isNaN(x)) {
+                        let b = Number(stack.pop());
+                        let a = Number(stack.pop());
+                        stack.push(ASMD(a, b, x));
+                    } else stack.push(x);
+                }
+                return stack;
+            }
+
+            let postfix = "352+*9-";
+            alert(solution(postfix));   
+        </script>
+    </body>
+</html>
+

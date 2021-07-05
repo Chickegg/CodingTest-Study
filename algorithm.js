@@ -1008,39 +1008,158 @@
 // console.log(solution(str));
 
 /// 크레인 뽑기 대망의 !!
-function solution(board, moves){
-    let box = [];
-    for(let x of moves) { // moves가 들어오는 부분
-        // 만일 moves[i] === 1이다? 그럼 뒤에 for문에서 board의 index 1번 부분들을
-        //확인하여서 0이아닌 숫자가 오면 answer 에 push해준다
-        for(let i = 0; i < board.length; i++) { 
-            if(board[i][x - 1] > 0) {
-                box.push(board[i][x - 1]);
-                board[i][x - 1] = 0;
-                break;
-            }
-        }
-        console.table(box);
-    }
-    let count = 0;
-    let i = 0;
-    // while문을 돌면서 겹치는 ele가 있으면 그두개를 제거하고 다시이전으로 돌아가서 시간한다.
-    while(i < box.length) {
-        if(box[i] === box[i + 1]) {
-            box.splice(i, 2);
-            count += 2;
-            i -= 1;
-        } else {
-            i++;
-        }
-    }
-    return count;
-}
+// function solution(board, moves){
+//     let box = [];
+//     for(let x of moves) { // moves가 들어오는 부분
+//         // 만일 moves[i] === 1이다? 그럼 뒤에 for문에서 board의 index 1번 부분들을
+//         //확인하여서 0이아닌 숫자가 오면 answer 에 push해준다
+//         for(let i = 0; i < board.length; i++) { 
+//             if(board[i][x - 1] > 0) {
+//                 box.push(board[i][x - 1]);
+//                 board[i][x - 1] = 0;
+//                 break;
+//             }
+//         }
+//         console.table(box);
+//     }
+//     let count = 0;
+//     let i = 0;
+//     // while문을 돌면서 겹치는 ele가 있으면 그두개를 제거하고 다시이전으로 돌아가서 시간한다.
+//     while(i < box.length) {
+//         if(box[i] === box[i + 1]) {
+//             box.splice(i, 2);
+//             count += 2;
+//             i -= 1;
+//         } else {
+//             i++;
+//         }
+//     }
+//     return count;
+// }
 
-let a=[[0,0,0,0,0],
-       [0,0,1,0,3],
-       [0,2,5,0,1],
-       [4,2,4,4,2],
-       [3,5,1,3,1]];
-let b=[1, 5, 3, 5, 1, 2, 1, 4];
-console.log(solution(a, b));
+// let a=[[0,0,0,0,0],
+//        [0,0,1,0,3],
+//        [0,2,5,0,1],
+//        [4,2,4,4,2],
+//        [3,5,1,3,1]];
+// let b=[1, 5, 3, 5, 1, 2, 1, 4];
+// console.log(solution(a, b));
+
+// 좀 더 간단한 방법 // 나는 box를 만들어서 그안에 push를 해준다음에 while문을 돌면서 중복된거를 제거해 주는 방법이었는데
+// 강사니는 for문에서 0 이 아닌 인형부븐을 tmp에 저장해주어서 그상태에서 stack에 동일한값이 있으면 tmp는 그냥 날려주고 stack의 맨위에있는 값을 pop()해서 없애준다.
+// 그러나 같은 인형이 아니면 stack.push()를 해준다.
+
+// function solution(board, moves) {
+//     let answer = 0;
+//     let stack = [];
+//     moves.forEach(pos => {
+//         for(let i = 0; i < board.length; i++) {
+//             if(board[i][pos - 1] !== 0) { // 인형일 경우
+//                 let tmp = board[i][pos - 1]; // 인형을 tmp라는 변수로 만들어줌
+//                 board[i][pos - 1] = 0; // 인형이 빠져나갔으니 0으로 만들어줘야함.
+//                 if(tmp === stack[stack.length - 1]) {
+//                     stack.pop(); // 마지막 바구니의 맨 위의 요소를 제거해준다.
+//                     answer += 2;
+//                 }
+//                 else stack.push(tmp); // 바구니에 추가시켜준다.
+//                 break;
+//             }
+//         }
+//     });
+//     return answer;
+// }
+// let a=[[0,0,0,0,0],
+//        [0,0,1,0,3],
+//        [0,2,5,0,1],
+//        [4,2,4,4,2],
+//        [3,5,1,3,1]];
+// let b=[1, 5, 3, 5, 1, 2, 1, 4];
+// console.log(solution(a, b));
+
+// 6 - 4 후위식 연산
+
+// function ASMD(a, b, c) {
+//     if(c === '+') return a + b;
+//     if(c === '-') return a - b;
+//     if(c === '*') return a * b;
+//     if(c === '/') return a / b;
+// }
+// function solution(s) {
+//     let answer;
+//     let stack = [];
+
+//     for(let x of s) {
+//         if(isNaN(x)) {
+//             let b = Number(stack.pop());
+//             let a = Number(stack.pop());
+//             stack.push(ASMD(a, b, x));
+//         } else {
+//             stack.push(x);
+//         } 
+//     }
+//     return stack;
+// }
+
+// let postfix = "352+*9-";
+// console.log(solution(postfix));
+
+/// 6 -6 쇠막대기
+
+// function solution(s) {
+//     let answer = 0;
+//     let stack = [];
+//     for(let i = 0; i < s.length; i++) {
+//         if(s[i] === '(') stack.push(s[i]);
+//         else {
+//             stack.pop() // s[i]가 ')' 라는 것은 레이저 또는 쇠막대의 끝부분이기때문에 레이저의 시작부분 또는 쇠막대의 시작부분인 '(' 을 없애준다.
+//             if(s[i - 1] === '(') answer += stack.length; // s[i]가 레이저의 시작부분이었다는것이 판명이 나면 stack에 남아있는 쇠막대의 수만큼 answer에 더해준다.
+//             else answer += 1; // 그렇지않고 쇠막대의 끝부분이었으면 이전 else로 들어올 때 stack.pop()해줬던 쇠막대의 갯수인 1을 answer에 더해준다.
+//         }
+//     }
+//     return answer;
+// }
+// let a="(((()(()()))(())()))(()())";
+// console.table(solution(a));
+
+/// 6 - 7 공주구하기
+
+// function solution(n, k) {
+//     let answer;
+//     let queue = Array.from({length:n}, (v, i) => i + 1); // 길이가 n 이고 (ele, i) => ele는 i + 1이다.
+    
+//     while(queue.length) { // queue가 0이되면 끝난다.
+//         for(let i = 1; i < k; i++) queue.push(queue.shift()); // 큐의 맨앞의것을 맨뒤로 보내준다. 이경우 2번보내주면 큐의 맨앞의 요소는 k라고 말한 사람이 될것이다.
+//         queue.shift(); // k라고 말한 사람은 그냥 shift해주어서 사라지게 만든다.
+//         console.log(queue);
+//         if(queue.length === 1) answer = queue.shift(); // queue에 한개가 남으면 그것을 answer에 할당해준다.
+//     }
+//     return answer;
+// }
+
+// console.log(solution(8, 3));
+
+/// 6 - 8 교육과정 설계 queue를 이용한 방법.
+// function solution(need, plan) {
+//     let answer = "YES";
+//     let queue = need.split('');
+    
+//     for(let x of plan) {
+//         if(queue.includes(x)) { // queue에 paln의 x 가 존재할떄
+//             if(queue.shift() !== x) return "NO"; //queue의 맨 앞의 요소를 제거해주는데 이 제거한 요소가 앞에 queue과 plan의 공통요소 x 가 아니라면
+//             // 즉 요소들은 가지고 있지만 순서배치가 틀리다면? NO를 return받는다.
+//         }
+//     }
+// }       
+
+// filter , includes, 삼항연산자를 이용한 방법
+
+// function solution(need, plan) {
+//     return need === plan.split('').filter(ele => need.includes(ele)).join('') ? 'YES' : 'NO';
+// }
+
+// let a="CBA";
+// let b="CADBGE";
+// console.log(solution(a, b));
+
+// // plan을 split해서 배열로 만들어주고 그 배열들을 filter 메서드를 통해 plan배열의 요소들중 need 배열에 포함되어있는 요소들로 이루어진 배열을 .join('')하여 문자열로 만들어준다.
+// // 이것과 need 문자열이 같으면 YES이고 아니면 NO를 반환한다.
