@@ -1163,3 +1163,157 @@
 
 // // plan을 split해서 배열로 만들어주고 그 배열들을 filter 메서드를 통해 plan배열의 요소들중 need 배열에 포함되어있는 요소들로 이루어진 배열을 .join('')하여 문자열로 만들어준다.
 // // 이것과 need 문자열이 같으면 YES이고 아니면 NO를 반환한다.
+
+///////////// 7 - 1 선택정렬
+// 시간측정하기
+// var sum = 0;
+
+// // console.time("calculatingTime")
+
+// function solution(arr){
+//     let answer = arr; // 정렬해줘야하기때문에 answer를 해준다 이 때 얕은 복사이기 때문에 arr을 바꾸면 answer도 바뀐다
+//     for(let i = 0; i < arr.length; i++) {
+//         let idx = i;
+//         for(let j = i + 1; j < arr.length; j++) {
+//             if(arr[j] < arr[idx]) idx = j;
+//         }
+//         [arr[i], arr[idx]] = [arr[idx], arr[i]];
+//     }
+//     return answer;
+// }
+
+// let arr=[13, 5, 11, 7, 23, 15, 12 , 12321 ,123 ,123 ,135];
+// console.time(solution(arr));
+
+// console.timeEnd(solution(arr));
+
+
+// console.timeEnd('calculatingTime');
+// calculatingTime: 73.687255859375 ms
+
+/// 7 - 2 버블 정렬
+
+// 버블정렬은 제일큰수가 맨뒤로 가게되있다. 
+// function solution(arr){
+//     let answer=arr;
+//     for(let i = 0; i < arr.length - 1; i++) { // 몇바퀴 돌아야하는지만 알려주면된다.
+//         for(let j = 0; j < arr.length - i - 1; j++) {
+//             if(arr[j] > arr[j + 1]) {
+//                  [arr[j], arr[j+1]]=[arr[j+1], arr[j]];
+//             }
+//         }
+//     }
+
+//     return answer;
+// }
+
+// let arr=[13, 5, 11, 7, 23, 15];
+// console.log(solution(arr));
+
+
+/// 7 - 3 Special Sort(버블정렬응용);
+// 내가 푼 방법
+// 틀린 방법이다 왜냐? 정렬해주라는 소리가 없고 그저 음의 정수를 앞으로 오게하고 양의 정수를 뒤로오게 하라는 것만 있다.
+
+// function solution(arr){
+//     let answer=arr;
+    
+//     for(let i = 0; i < arr.length - 1; i++) {
+//         for(let j = 0 ; j < arr.length - i - 1; j++) {
+//             if(arr[j] > arr[j + 1] && arr[j] > 0) {
+//                 [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]];
+//                 console.log(answer);
+//             }
+//         }
+//     }
+//     return answer;
+// }
+
+// 이게 옮은 방법이다.
+
+// function solution(arr) {
+//     let answer = arr;
+//     for(let i = 0; i < arr.length - 1; i++) {
+//         for(let j = 0; j < arr.length - i - 1; j++) {
+//             if(arr[j] > 0 && arr[j + 1] < 0) {
+//                 [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]];
+//             }
+//         }
+//     }
+//     return answer;
+// }
+// let arr=[1, 2, 3, -3, -2, 5, 6, -6, 8, 9, 10, 21, -4, -5, -7, -8];
+// console.log(solution(arr));
+
+// 7 - 4 삽입정렬
+
+// function solution(arr) {
+//     let answer = arr;
+
+//     for(let i = 0; i < arr.length; i++) {
+//         let tmp = arr[i], j;
+//         for(j = i - 1; j >= 0; j--) {
+//             if(arr[j] > tmp) arr[j + 1] = arr[j];
+//             else break;
+//         }
+//         arr[j + 1] = tmp;
+//     }
+//     return answer;
+// }
+
+// let arr = [11, 7, 5, 6, 10, 9];
+// console.log(solution(arr));
+
+
+    // 삽입정렬은 버블정렬처럼 0부터 비교하는것이 아니라 i가 2번째 값부터 시작한다.
+    // j = i - 1 ~ 0 까지 돈다. 즉 j가 i의 앞의 값부터 배열의 처음부분까지 검사를 하는 것이다.
+    // j for문이 돌기전에 tmp (임시변수) 에 arr[i]값을 저장해준다.
+    // 그리고 j가 돈다. arr[j]가 tmp보다 크면 arr[j + 1] = arr[j] 로 해준다. 
+    // 끝나면 j의 뒷지점 즉 j + 1 지점에 tmp를 삽입시켜준다.
+
+
+/// 7 - 5 LRU(Least Recently Used) 카카오 캐시 문제 변형 ///
+
+// function solution(s, arr) {
+//     let answer = Array.from({length:s}, () => 0);
+//     arr.forEach(x => {
+//        let pos = -1;
+//        for(let i = 0; i < s; i++) if(x===answer[i]) pos = i; // answer안을 돌면서 만일 x 라는값이 그안에있으면 pos에 저장해준다. cash안의 x의 index번호를 저장해준것. 
+//        if(pos === -1) {
+//            for(let i = s - 1; i >= 1; i--) {
+//                answer[i] = answer[i - 1];
+//            }
+//        }
+//        else {
+//            for(let i = pos; i >=1; i--) {
+//                answer[i] = answer[i - 1];
+//            }
+//        }
+//        answer[0] = x; // x라는 작업은 한번만 들어갈 것임으로 2번 해줄 필요 없다.
+//     });
+//     return answer;
+// }
+// arr = [1, 2, 3, 2, 6, 2, 3, 5, 7];
+// console.log(solution(5, arr));
+
+
+// 내가 푼 방법(내장함수를 활용했다.)
+// function solution(s, arr) {
+//     let answer = [];
+//     for(let x of arr) {
+//         if(answer.includes(x)) { // 메모리 안에 존재 할 때
+//             let tmp = answer.splice(answer.indexOf(x), 1);
+//             answer.unshift(tmp[0]);
+//             } else { // 메모리안에 존재하지 않을 때
+//                 if(answer.length === s) { // 꽉차있을 경우
+//                     answer.pop();
+//                     answer.unshift(x);
+//                 } else answer.unshift(x); // 비어있을 경우
+//             }
+//     }
+//     return answer;
+// }
+// arr = [1, 2, 2, 2, 6, 2, 3, 5, 7];
+// console.log(solution(5, arr));
+// 만일 입력된 값이 메모리에 존재하지 않으면 그값을맨앞에 오게하고 만일 메모리가 꽉찼으면 맨뒤의것을 pop()해주고 upshift해준다.
+// cash hit 입력된 값이 answer에 있을경우 그 값을 맨앞으로 가져오고 그 값의 앞의 것들을 뒤로 땡긴다.
