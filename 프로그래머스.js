@@ -59,9 +59,9 @@
 
 
 
-/// ----------------------------------- L V 1 -------------------------------------------// 
+/// ----------------------------------- L V 2 -------------------------------------------// 
 
-// (행렬의 곱셈)
+//// (행렬의 곱셈) ////
 // function solution(arr1, arr2) {
 //     let answer = [];
 
@@ -82,21 +82,25 @@
 // let b = [[3, 3], [3, 3]];
 // console.log(solution(a, b));
 
-// (N개의 최소공배수)
+
+
+//// (N개의 최소공배수) ////
 
 // function solution(arr) {
 //     let LastNum = arr.pop();
 //     let answer = LastNum;
-//     let count = 0;
-
-//     while(count < 3) {
-//         count = 0;
+    
+//     while(true) { 
+//         let count = 0;
 //         for(let x of arr) {
 //             if(answer % x !== 0) {
 //                 answer += LastNum;
-//                 break;
+//             break;
 //             }
 //             count++;
+//         }
+//         if(count === arr.length) {
+//             break;
 //         }
 //     }
 //     return answer;
@@ -104,3 +108,28 @@
 
 // let a = [2, 6, 8, 14];
 // console.log(solution(a));
+
+
+
+//// 최솟값 만들기 ////
+
+// function solution(A, B) {
+//     let answer = 0;
+//     A.sort((a, b) => a - b);
+//     B.sort((a, b) => b - a);
+
+//     for(let i = 0; i < A.length; i++) {
+//         answer += A[i] * B[i];
+//     }
+//     return answer;
+// }
+// console.log(solution([1, 4, 2], [5, 4, 4]));
+
+
+
+//// JadenCase 문자열 만들기 ////
+
+// function solution(s) {
+//     return s.split(' ').map(ele => ele.charAt(0).toUpperCase() + ele.slice(1).toLowerCase()).join(' ');
+// }
+// console.log(solution("3people unFollowed me"));
