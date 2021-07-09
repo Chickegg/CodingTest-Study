@@ -1317,3 +1317,126 @@
 // console.log(solution(5, arr));
 // 만일 입력된 값이 메모리에 존재하지 않으면 그값을맨앞에 오게하고 만일 메모리가 꽉찼으면 맨뒤의것을 pop()해주고 upshift해준다.
 // cash hit 입력된 값이 answer에 있을경우 그 값을 맨앞으로 가져오고 그 값의 앞의 것들을 뒤로 땡긴다.
+
+// 7 - 6 장난 꾸러기 현수
+// function solution(arr){
+//     let answer=[];
+//     let a = arr.slice().sort((a, b) => a - b);
+//     console.log(arr, a);
+//     for(let i = 0; i < arr.length; i++) {
+//         console.log(arr[i], a[i]);
+//         if(arr[i] !== a[i]) answer.push(i + 1); // 처음값은 현수의 번호이고 두번째는 현수짝쿵의 번호일것이다.
+//     }
+//     return answer;
+// }
+
+// // let arr=[120, 125, 152, 130, 135, 135, 143, 127, 160];
+// let arr = [120,130,150,150,130,150];
+// console.log(solution(arr));
+
+// 7 - 7 좌표 정렬
+// x 좌표가 작은 순대로 x 좌표가 같으면 y좌표가 큰수대로
+// function solution(arr){
+//     let answer = arr;
+//     arr.sort((a, b) => {
+//         if(a[0] === b[0]) return a[1] - b[1];
+//         else return a[0] - b[0];
+//     })
+//     return answer;
+// }
+
+// let arr=[[2, 7], [1, 3], [1, 2], [2, 5], [3, 6]];
+// console.log(solution(arr));
+
+// n개의 회의들이 한개의 회의실에서 시간이 겹치지 않게 진행되어야한다.
+// 시작시간과 종료시간은 주어준다.
+
+// 겹치지 않도록 하면서 가장 많읂 회의를 진행할 수 있는 최대 경우의 수를 찾아라.
+// 끝남과 동시에 시작이 가능하다.
+// 2, 3 3, 5, 5, 7 
+
+
+// 7 -8 회의실 배정
+
+//1.끝나는 시간이 빠른 순서대로 정렬을 한다.
+//1-1 끝나는시간이 같다면 시작시간이 빠른순서대로 정렬을 한다.
+//2. 끝나는시간을 et로 정해주고 for .. of 문을 돌면서 x 의 시작시간이 et와 같다면
+// answer++해주고 et를 x의 끝나는시간으로 바꿔준다.
+
+// 즉 끝나는시간이 빠른순서대로 시작시간을 비교해가면서 정해주는 방식.
+
+// function solution(meeting) {
+//     let answer = 0;
+
+//     meeting.sort((a, b) => {
+//         if(a[1] === b[1]) return a[0] - b[0];
+//         else return a[1] - b[1];
+//     })
+//     let et = 0;
+//     for(let x of meeting) {
+//         if(x[0] >= et) {
+//             answer++;
+//             et = x[1];
+
+//         }
+//     }
+//     return answer;
+// }
+// let arr=[[1, 4], [2, 3], [3, 5], [4, 6], [5, 7]];
+// // let arr = [[3, 3],[1,3],[2,3]];
+// console.log(solution(arr));
+
+// function solution(times){
+//     let answer = Number.MIN_SAFE_INTEGER;
+//     let TimeLine = [];
+//     for(let x of times) {
+//         TimeLine.push([x[0], 's']);
+//         TimeLine.push([x[1], 'e']);
+//     }
+//     TimeLine.sort((a, b) => {
+//         if(a[0] === b[0]) return a[1].charCodeAt() - b[1].charCodeAt(); // e가 아스키코드가 더작기 때문에 e먼저 나오게하려면 오름차순으로 정렬해줘야한다.
+//         else return a[0] - b[0];
+//     });
+//     let cnt = 0;
+//     for(let x of TimeLine) {
+//         if(x[1] === 's') cnt++;
+//         else cnt--;
+//         answer = Math.max(answer, cnt);
+//     }
+//     console.log(TimeLine);
+//     return answer;
+// }
+// let arr=[[14, 18], [12, 15], [15, 20], [20, 30], [5, 14]];
+// console.log(solution(arr));
+
+
+// 하나의 사람을 2개의 이벤트로 쪼개야한다.
+// 예를 들어 14는 s 18은 e
+
+
+
+/// 7 - 10 이분검색 ///
+// function solution(target, arr) {
+//     let answer;
+//     arr.sort((a, b) => a - b);
+//     let lt = 0, rt = arr.length - 1;
+//     while(lt <= rt) {
+//         let mid = Math.floor((lt + rt) /2);
+//         if(arr[mid] === target) {
+//             answer = mid + 1;
+//             break;
+//         } 
+//         else if (arr[mid] > target) rt = mid - 1;
+//         else lt = mid + 1;
+//     }
+//     return answer;
+// }
+
+// let arr=[23, 87, 65, 12, 57, 32, 99, 81];
+// console.log(solution(32, arr));
+
+// 처음부터 끝까지 비교하는 순차탐색은 최악의 경우 O(n)이다.
+// 그러나 이분탐색을 비교하면 O(log.n)이다.
+
+// lt, rt가 필요하다. 
+// mid를 변수로 만들어준다. mid = Math.floor((lt + rt) /2)이다.
