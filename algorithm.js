@@ -1440,3 +1440,268 @@
 
 // lt, rt가 필요하다. 
 // mid를 변수로 만들어준다. mid = Math.floor((lt + rt) /2)이다.
+
+// 결정알고리즘은 이진탐색을 사용하는것이 기본으로 생각하자.
+
+/// 7 - 11 뮤직비디오 /// 
+// function count(capacity, songs) {
+//     let cnt = 1, sum = 0;
+//     for(let x of songs) {
+//         if(x + sum > capacity) {
+//             cnt++;
+//             sum = x;
+//         } else {
+//             sum += x;
+//         }
+//     }
+//     return cnt;
+// }
+// function solution(m , songs) {
+//     let answer = 0;
+//     let lt = Math.max(...songs);
+//     let rt = songs.reduce((a, b) => a + b ,0);
+//     console.log(lt, rt);
+
+//     while(lt <= rt) {
+//         let mid = parseInt((lt + rt) / 2);
+//         if(count(mid, songs) <= m) {
+//             answer = mid;
+//             rt = mid - 1;
+//         } else {
+//             lt = mid + 1;
+//         }
+//     }
+//     return answer;
+// }
+
+// let MP3 = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+// console.log(solution(3, MP3));
+
+// 결정알고리즘을 어떻게하느냐 답의 범위를 찾아야 한다.
+// 곡을 쪼갤 수 없기 때문에 한개의 곡을 담을 수 있는 용량은 되야한다.
+// rt는 충분한 큰수로 잡아준다.
+// mid를 구해주고 mid에 3장에 나눠담았을때 골고루 담을 수 있는 지를 봐야한다.
+// 만일 3장을 줬는데 2장에 담을 수 있으면 1장은 불필요함으로 필요가없다.
+
+// m이하이면은 답이 될 수 있다.
+
+
+/// 7 - 12 마구간 정하기
+
+
+// function count(distance, dist) {
+//     let ep = dist[0]; 
+//     let ex = 1;
+//     for(let x of dist) {
+//         if(x - ep >= distance) {
+//             ex++;
+//             ep = x;
+//         } 
+//     }
+//     return ex;
+// }
+// function solution(n, dist){
+// let answer = 0;
+// dist.sort((a, b) => a - b);
+// let lt = dist[1] - dist[0];  // 최소거리
+// let rt = dist[dist.length - 1] - dist[0]; // 최대거리 
+// console.log(lt, rt);
+// while(lt <= rt) {
+//     let mid = Math.floor((lt + rt) / 2);
+//     if(count(mid, dist) >= n) {
+//         answer = mid;
+//         lt = mid + 1;
+//     } else {
+//         rt = mid - 1;
+//     }
+// }
+// console.log(lt, rt);
+// return answer;
+// }
+
+// let arr=[5, 6, 8, 12, 14];
+// console.log(solution(3, arr));
+
+
+///      8 - 1 재귀함수
+
+
+// function solution(n) {
+//     function DFS(L) {
+//         if(L === 0) return; // 값을 반환하는 의미, 종료의 의미.
+//         else {
+//             DFS(L - 1);
+//             console.log(L);
+//         }
+//     }
+
+//     DFS(n)
+// }
+// solution(3);
+
+// stack에 들어간다모든 함수들은.
+// 함수가 호출이되면 함수 stackframe이 들어가는데 그곳에는 매개변수 (L) 지역변수 복귀주소가 담겨진다.
+
+// stack영역은 함수가 호출되면 그 함수의 매개변수 지역변수 복귀주소가 저장되는 영역이다. 함수의 호출이 종료되면 소멸한다.
+
+// 이러한 스텍프레임 덕분에 함수의 호출이 모두 끝난뒤에, 해당 함수가 호출되기 이전 상태로 되돌아 갈 수 있따. 
+
+// 순서를 바꾸면 출력이 바뀌는 것은 DFS(L - 1) 을 만나면 console.log(L)을 하지않고 DFS(L - 1)로 넘어간다 그러다가 결국 0이되면 스택에 담겨있는 0인경우가 사라지고
+// 남아있는 스택의 제일위의 공간의 복귀주소로돌아간다 그럼console.log(를 한다. ) 그럼 1이되지. 
+
+//call stack
+
+///  8 - 2  재귀함수를 이용한 이진수 출력 stack
+
+
+// function solution(n) {
+//     let answer = '';
+//     function DFS(n) {
+//         if(n === 0) return;
+//         else {
+//             DFS(parseInt(n / 2));
+//             answer += (n % 2);
+//         }
+//     }
+
+//     DFS(n)
+//     return answer;
+
+// }
+
+// console.log(solution(11));
+
+
+/// 8 - 3 이진트리순회(DFS: 깊이 우선 탐색)
+
+
+
+// 이진트리 = 나무를 꺼꾸로 세워놓은 것
+// 부모 * 2 왼쪽자식
+// 부모 * 2 + 1 오른쪽자식
+
+// 전위 중위 후위 가되었건간에 깊이우선탐색은 왼쪽으로 타고들어간다.
+// 왼쪽자식의 왼쪽자식의 왼쪽자식 
+// 막히면 뒤로 빽해서 안가봤떤 길로 가본다. 막히면 또 되돌아온다.
+// 이걸 전부 탐색할때까지 반복한다.
+
+// 전위순회는 부모 - 왼자 - 오자 순으로 출력
+// 중위는 왼자 - 부모 - 오자
+// 후위순회는 왼쪽 오른쪽 부모
+
+// function solution(v) {
+//     let answer;
+//     function DFS(v) { // v 는 부모
+//         if(v > 7) return;
+//         else {
+//             // console.log(v); // 부모출력하고
+//             // DFS(v * 2); // 왼쪽출력하고
+//             // DFS(v * 2 + 1); // 오른쪽출력한다.
+//             DFS(v * 2);
+//             console.log(v);
+//             DFS(v * 2 + 1);
+//         }
+//     }
+//     DFS(v);
+//     return answer;
+// }
+
+// console.log(solution(1));
+
+
+/// 8 - 4  부분집합 구하기(DFS)
+
+
+
+// function solution(n) {
+//     let answer = [];
+//     let ch = Array(n + 1).fill(0);
+
+//     // ch[1] = 1;
+//     // console.log(ch);
+//     function DFS(v) {
+//         if(v === n + 1) {
+//             let tmp =""
+//             for(let i = 1; i <= n; i++) {
+//                 if(ch[i] === 1) tmp += i + " ";
+//             }
+//             console.log(tmp);
+//         }
+//         else {
+//             ch[v] = 1;
+//             DFS(v + 1);
+//             ch[v] = 0; // 포함안시킨다.
+//             DFS(v + 1);
+//         }
+
+//     }
+//     DFS(1);
+//     return answer;
+// }
+// console.log(solution(3));
+
+
+/// 8 - 5 합이 같은 부분집합(이진트리 DFS)
+/// 내가 푼 방법
+
+
+// function solution(arr) {
+//     let answer = "NO";
+//     let min = arr.reduce((a, b) => a + b, 0) / 2;
+//     let ch = Array(arr.length).fill(0);
+//     let count = 0;
+
+//     function DFS(v) {
+//         if(count === 2) {
+//             return answer = "YES";
+//         }
+
+//         if(v === a.length + 1) {
+//             let sum = 0;
+//             for(let i = 1; i <= a.length; i++) {
+//                 if(ch[i] === 1) {
+//                     sum += arr[i - 1];
+//                     if(sum === min) count++;
+//                 } 
+//             }
+//         }
+//         else { 
+//             ch[v] = 1; // 넣었을 때
+//             DFS(v + 1);
+//             ch[v] = 0; // 안넣었을 때 
+//             DFS(v + 1);
+//         }
+//     }  
+//     DFS(1)
+//     return answer;    
+// }
+// let a = [2, 2, 4];
+// console.log(solution(a));
+
+
+/// 강의에서 푼 방법
+
+
+// function solution(arr) {
+//     let answer = "NO", flag = 0;
+//     let total = arr.reduce((a, b) => a + b, 0);
+//     let n = arr.length;
+
+//     function DFS(l, sum) {
+//         if(flag) return;
+//         if(l === n) {
+//             if((total - sum) === sum) {
+//                 answer = "YES"; 
+//                 flag = 1;
+//             }
+//         }
+//         else {
+//         DFS(l + 1, sum + arr[l]);
+//         DFS(l + 1, sum);
+//         }
+//     }
+//     DFS(0, 0);
+//     return answer;
+// }
+// let a = [1, 3, 5, 6, 7, 10];
+// console.log(solution(a));
