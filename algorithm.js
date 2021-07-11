@@ -1705,3 +1705,80 @@
 // }
 // let a = [1, 3, 5, 6, 7, 10];
 // console.log(solution(a));
+
+
+/// 8 - 6 바둑이 승차(DFS) 
+
+
+// function solution(limit, kgs) {
+//     let answer = Number.MIN_SAFE_INTEGER;
+//     let n = kgs.length;
+//     function DFS(L, sum) {
+//         if(sum > limit) return;
+//         if(L === n) {
+//             answer = Math.max(answer, sum);
+//             console.log(answer + '------');
+//         }
+//         else {
+//             console.log(sum);
+//             DFS(L + 1, sum + kgs[L]); // 넣을 때
+//             DFS(L + 1, sum); // 넣지 않을 때
+//         }
+//     }
+//     DFS(0, 0);
+
+//     return answer;
+// }
+
+// let list = [81, 58, 42, 33, 61];
+// console.log(solution(259, list));
+
+
+/// 8 - 7 최대 점수 구하기(DFS) 
+
+// function solution(time, exs) {
+//     let answer = Number.MIN_SAFE_INTEGER;
+//     let n = exs.length;
+
+//     // exs[0][0] 얻을 수 있는 점수
+//     // exs[0][1] 걸리는 시간
+//     function DFS(L, Nsum, Tsum) {
+//         if(Tsum > time) return
+//         if(L === n) {
+//             answer = Math.max(answer, Nsum);
+//         } 
+//         else { 
+//             DFS(L + 1, Nsum + exs[L][0], Tsum + exs[L][1]) // 이문제를 풀었을 경우
+//             DFS(L + 1, Nsum, Tsum) // 문제를 안푸는 경우;
+//         }
+//     }
+//     DFS(0, 0, 0);
+//     return answer;
+// }
+
+// let exs = [[5, 1], [10, 1], [25, 1], [15, 1], [6, 1], [7, 1]];
+// console.log(solution(20, exs));
+
+/// 8 - 8 중복 순열 구하기 (다중 for 문과 재귀의 차이점)
+
+// 깊은 복사를 해서 넣어줘야한다.
+
+// function solution(n, m) {
+//     let answer = [];
+//     let tmp = Array(m).fill(0);
+//     function DFS(L) {
+//         if (L === m) { // 두번 뽑았으면 
+//             console.log(tmp, answer);
+//             answer.push(tmp.slice());
+//         }
+//         else {
+//             for(let i = 1; i <= n; i++) {
+//                 tmp[L] = i;
+//                 DFS(L + 1);
+//             }
+//         }
+//     }
+//     DFS(0);
+//     return answer;
+// }
+// console.log(solution(3, 2));
