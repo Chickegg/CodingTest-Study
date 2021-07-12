@@ -653,7 +653,7 @@
 //     let n = arr2.length;
 //     let m = arr2.length;
 //     let p1 = p2 = 0;
-//     while(p1< n && p2< m) { 
+//     while(p1< n && p2< m) {
 //         if(arr1[p1] <= arr2[p2]) answer.push(arr1[p1++]); // 뒤에 ++을하면 후칙연산으로하고
 //             //즉 지금값이 1이면 1을 넣고 ++해서 2가된다.
 //             else answer.push(arr2[p2++]);
@@ -690,7 +690,7 @@
 // let b=[3, 2, 5, 7, 8];
 // console.log(solution(a, b));
 
-// 강사님이 푼 방식 
+// 강사님이 푼 방식
 
 // function solution(arr1, arr2) {
 //     let answer = [];
@@ -786,15 +786,15 @@
 // console.log(solution(5, a));
 
 //--------------------------------------------------------------------------------------------
-// /// 여기서 핵심은 1, 3, 1, 2, 3 일때 
+// /// 여기서 핵심은 1, 3, 1, 2, 3 일때
 // lt, rt로 해주는데
 // lt는 왼쪽숫자이고 rt는 오른쪽숫자라고 생각하면 편하다.
 
-// 즉 rt를 증가시켜가면서 주어진 값 보다 작을때 ++ 해주고 
+// 즉 rt를 증가시켜가면서 주어진 값 보다 작을때 ++ 해주고
 // 만일 rt가 주어진값보다 커지면 rt에서 lt를 마이너스 해가면서 주어진값보다 작이지면 ++ 해주고
 // 다시 rt를 증가시켜준다. 이거반복
 
-// 5 - 5 최대매출 
+// 5 - 5 최대매출
 // 내가한 방법
 // function solution(k, arr) {
 //     let answer = 0 , sum = 0;
@@ -809,7 +809,7 @@
 // let a=[12, 15, 11, 20, 25, 10, 20, 19, 13, 15];
 // console.log(solution(3, a));
 
-// 강사님이 한방법 
+// 강사님이 한방법
 
 // function solution(k, arr) {
 //     let answer, sum = 0;
@@ -838,7 +838,7 @@
 
 /// 5 - 5 학급 회장(해쉬); new Map, Map.set(key, value), .get().has()
 
-// function solution(s){  
+// function solution(s){
 //     let answer;
 //     let Hash = new Map();
 //     for(let x of s) {
@@ -848,20 +848,20 @@
 //     }
 
 //     let max = Number.MIN_SAFE_INTEGER; // 작은 수 지정
-    
+
 //     for(let [key, value] of Hash) { // for .. of 문을 이렇게도 사용가능하구나..
 //         if(value > max) {
 //             max = value;
 //             answer = key;
 //         }
 //     }
-//     return answer;       
+//     return answer;
 // }
 
 // let str="BACBACCACCBDEDE";
 // console.log(solution(str));
 
-// 5 - 6 아나그램(해쉬) 
+// 5 - 6 아나그램(해쉬)
 // 내가푼 방법 map을 2개를 만들어줘서 그둘을 서로 비교하는 방법 for문을 3번돌아야한다.
 // 길이가 다른상황에서도 비교가능하다.
 // function solution(str1, str2){
@@ -906,7 +906,7 @@
 // 그러기 위해서 sH가 str2의 1개이상 가지고 있을 경우에는 sH에서 -1을 해준다.
 // for문을 2번만 돌아주면 된다.
 // function solution(str1, str2){
-//     let answer="YES"; 
+//     let answer="YES";
 //     let sH = new Map();
 //     for(let x of str1){
 //         if(sH.has(x)) sH.set(x, sH.get(x)+1);
@@ -953,7 +953,7 @@
 //             if(OX === "O") {
 //                 answer++;
 //                 list = str1[i - 3] + str1[i - 2] + str1[i - 1];
-//                 } 
+//                 }
 //                 else {
 //                 list = str1[i - 3] + str1[i - 2] + str1[i - 1];
 //             }
@@ -967,7 +967,7 @@
 // console.log(solution(a, b));
 
 // 풀기전 나의 풀이생각.
-// 우선 슬라이딩윈도우를 통해서 str2와 같은 길이까지 str1의 문자열만큼 더해주고 
+// 우선 슬라이딩윈도우를 통해서 str2와 같은 길이까지 str1의 문자열만큼 더해주고
 // str2의 각요소들을 str1의 hash 와 동일해서 아나그램이라면 count++ 해주고
 // 그것이 끝나면 str1에 마지막에 그다음남은 문자를더해주고 그전의 문자는 지워준다 그리고 또 비교
 
@@ -1013,7 +1013,7 @@
 //     for(let x of moves) { // moves가 들어오는 부분
 //         // 만일 moves[i] === 1이다? 그럼 뒤에 for문에서 board의 index 1번 부분들을
 //         //확인하여서 0이아닌 숫자가 오면 answer 에 push해준다
-//         for(let i = 0; i < board.length; i++) { 
+//         for(let i = 0; i < board.length; i++) {
 //             if(board[i][x - 1] > 0) {
 //                 box.push(board[i][x - 1]);
 //                 board[i][x - 1] = 0;
@@ -1095,7 +1095,7 @@
 //             stack.push(ASMD(a, b, x));
 //         } else {
 //             stack.push(x);
-//         } 
+//         }
 //     }
 //     return stack;
 // }
@@ -1126,7 +1126,7 @@
 // function solution(n, k) {
 //     let answer;
 //     let queue = Array.from({length:n}, (v, i) => i + 1); // 길이가 n 이고 (ele, i) => ele는 i + 1이다.
-    
+
 //     while(queue.length) { // queue가 0이되면 끝난다.
 //         for(let i = 1; i < k; i++) queue.push(queue.shift()); // 큐의 맨앞의것을 맨뒤로 보내준다. 이경우 2번보내주면 큐의 맨앞의 요소는 k라고 말한 사람이 될것이다.
 //         queue.shift(); // k라고 말한 사람은 그냥 shift해주어서 사라지게 만든다.
@@ -1142,14 +1142,14 @@
 // function solution(need, plan) {
 //     let answer = "YES";
 //     let queue = need.split('');
-    
+
 //     for(let x of plan) {
 //         if(queue.includes(x)) { // queue에 paln의 x 가 존재할떄
 //             if(queue.shift() !== x) return "NO"; //queue의 맨 앞의 요소를 제거해주는데 이 제거한 요소가 앞에 queue과 plan의 공통요소 x 가 아니라면
 //             // 즉 요소들은 가지고 있지만 순서배치가 틀리다면? NO를 return받는다.
 //         }
 //     }
-// }       
+// }
 
 // filter , includes, 삼항연산자를 이용한 방법
 
@@ -1193,7 +1193,7 @@
 
 /// 7 - 2 버블 정렬
 
-// 버블정렬은 제일큰수가 맨뒤로 가게되있다. 
+// 버블정렬은 제일큰수가 맨뒤로 가게되있다.
 // function solution(arr){
 //     let answer=arr;
 //     for(let i = 0; i < arr.length - 1; i++) { // 몇바퀴 돌아야하는지만 알려주면된다.
@@ -1217,7 +1217,7 @@
 
 // function solution(arr){
 //     let answer=arr;
-    
+
 //     for(let i = 0; i < arr.length - 1; i++) {
 //         for(let j = 0 ; j < arr.length - i - 1; j++) {
 //             if(arr[j] > arr[j + 1] && arr[j] > 0) {
@@ -1268,7 +1268,7 @@
     // 삽입정렬은 버블정렬처럼 0부터 비교하는것이 아니라 i가 2번째 값부터 시작한다.
     // j = i - 1 ~ 0 까지 돈다. 즉 j가 i의 앞의 값부터 배열의 처음부분까지 검사를 하는 것이다.
     // j for문이 돌기전에 tmp (임시변수) 에 arr[i]값을 저장해준다.
-    // 그리고 j가 돈다. arr[j]가 tmp보다 크면 arr[j + 1] = arr[j] 로 해준다. 
+    // 그리고 j가 돈다. arr[j]가 tmp보다 크면 arr[j + 1] = arr[j] 로 해준다.
     // 끝나면 j의 뒷지점 즉 j + 1 지점에 tmp를 삽입시켜준다.
 
 
@@ -1278,7 +1278,7 @@
 //     let answer = Array.from({length:s}, () => 0);
 //     arr.forEach(x => {
 //        let pos = -1;
-//        for(let i = 0; i < s; i++) if(x===answer[i]) pos = i; // answer안을 돌면서 만일 x 라는값이 그안에있으면 pos에 저장해준다. cash안의 x의 index번호를 저장해준것. 
+//        for(let i = 0; i < s; i++) if(x===answer[i]) pos = i; // answer안을 돌면서 만일 x 라는값이 그안에있으면 pos에 저장해준다. cash안의 x의 index번호를 저장해준것.
 //        if(pos === -1) {
 //            for(let i = s - 1; i >= 1; i--) {
 //                answer[i] = answer[i - 1];
@@ -1353,7 +1353,7 @@
 
 // 겹치지 않도록 하면서 가장 많읂 회의를 진행할 수 있는 최대 경우의 수를 찾아라.
 // 끝남과 동시에 시작이 가능하다.
-// 2, 3 3, 5, 5, 7 
+// 2, 3 3, 5, 5, 7
 
 
 // 7 -8 회의실 배정
@@ -1425,7 +1425,7 @@
 //         if(arr[mid] === target) {
 //             answer = mid + 1;
 //             break;
-//         } 
+//         }
 //         else if (arr[mid] > target) rt = mid - 1;
 //         else lt = mid + 1;
 //     }
@@ -1438,12 +1438,12 @@
 // 처음부터 끝까지 비교하는 순차탐색은 최악의 경우 O(n)이다.
 // 그러나 이분탐색을 비교하면 O(log.n)이다.
 
-// lt, rt가 필요하다. 
+// lt, rt가 필요하다.
 // mid를 변수로 만들어준다. mid = Math.floor((lt + rt) /2)이다.
 
 // 결정알고리즘은 이진탐색을 사용하는것이 기본으로 생각하자.
 
-/// 7 - 11 뮤직비디오 /// 
+/// 7 - 11 뮤직비디오 ///
 // function count(capacity, songs) {
 //     let cnt = 1, sum = 0;
 //     for(let x of songs) {
@@ -1490,13 +1490,13 @@
 
 
 // function count(distance, dist) {
-//     let ep = dist[0]; 
+//     let ep = dist[0];
 //     let ex = 1;
 //     for(let x of dist) {
 //         if(x - ep >= distance) {
 //             ex++;
 //             ep = x;
-//         } 
+//         }
 //     }
 //     return ex;
 // }
@@ -1504,7 +1504,7 @@
 // let answer = 0;
 // dist.sort((a, b) => a - b);
 // let lt = dist[1] - dist[0];  // 최소거리
-// let rt = dist[dist.length - 1] - dist[0]; // 최대거리 
+// let rt = dist[dist.length - 1] - dist[0]; // 최대거리
 // console.log(lt, rt);
 // while(lt <= rt) {
 //     let mid = Math.floor((lt + rt) / 2);
@@ -1544,10 +1544,10 @@
 
 // stack영역은 함수가 호출되면 그 함수의 매개변수 지역변수 복귀주소가 저장되는 영역이다. 함수의 호출이 종료되면 소멸한다.
 
-// 이러한 스텍프레임 덕분에 함수의 호출이 모두 끝난뒤에, 해당 함수가 호출되기 이전 상태로 되돌아 갈 수 있따. 
+// 이러한 스텍프레임 덕분에 함수의 호출이 모두 끝난뒤에, 해당 함수가 호출되기 이전 상태로 되돌아 갈 수 있따.
 
 // 순서를 바꾸면 출력이 바뀌는 것은 DFS(L - 1) 을 만나면 console.log(L)을 하지않고 DFS(L - 1)로 넘어간다 그러다가 결국 0이되면 스택에 담겨있는 0인경우가 사라지고
-// 남아있는 스택의 제일위의 공간의 복귀주소로돌아간다 그럼console.log(를 한다. ) 그럼 1이되지. 
+// 남아있는 스택의 제일위의 공간의 복귀주소로돌아간다 그럼console.log(를 한다. ) 그럼 1이되지.
 
 //call stack
 
@@ -1581,7 +1581,7 @@
 // 부모 * 2 + 1 오른쪽자식
 
 // 전위 중위 후위 가되었건간에 깊이우선탐색은 왼쪽으로 타고들어간다.
-// 왼쪽자식의 왼쪽자식의 왼쪽자식 
+// 왼쪽자식의 왼쪽자식의 왼쪽자식
 // 막히면 뒤로 빽해서 안가봤떤 길로 가본다. 막히면 또 되돌아온다.
 // 이걸 전부 탐색할때까지 반복한다.
 
@@ -1662,18 +1662,18 @@
 //                 if(ch[i] === 1) {
 //                     sum += arr[i - 1];
 //                     if(sum === min) count++;
-//                 } 
+//                 }
 //             }
 //         }
-//         else { 
+//         else {
 //             ch[v] = 1; // 넣었을 때
 //             DFS(v + 1);
-//             ch[v] = 0; // 안넣었을 때 
+//             ch[v] = 0; // 안넣었을 때
 //             DFS(v + 1);
 //         }
-//     }  
+//     }
 //     DFS(1)
-//     return answer;    
+//     return answer;
 // }
 // let a = [2, 2, 4];
 // console.log(solution(a));
@@ -1691,7 +1691,7 @@
 //         if(flag) return;
 //         if(l === n) {
 //             if((total - sum) === sum) {
-//                 answer = "YES"; 
+//                 answer = "YES";
 //                 flag = 1;
 //             }
 //         }
@@ -1707,7 +1707,7 @@
 // console.log(solution(a));
 
 
-/// 8 - 6 바둑이 승차(DFS) 
+/// 8 - 6 바둑이 승차(DFS)
 
 
 // function solution(limit, kgs) {
@@ -1734,7 +1734,7 @@
 // console.log(solution(259, list));
 
 
-/// 8 - 7 최대 점수 구하기(DFS) 
+/// 8 - 7 최대 점수 구하기(DFS)
 
 // function solution(time, exs) {
 //     let answer = Number.MIN_SAFE_INTEGER;
@@ -1746,8 +1746,8 @@
 //         if(Tsum > time) return
 //         if(L === n) {
 //             answer = Math.max(answer, Nsum);
-//         } 
-//         else { 
+//         }
+//         else {
 //             DFS(L + 1, Nsum + exs[L][0], Tsum + exs[L][1]) // 이문제를 풀었을 경우
 //             DFS(L + 1, Nsum, Tsum) // 문제를 안푸는 경우;
 //         }
@@ -1767,7 +1767,7 @@
 //     let answer = [];
 //     let tmp = Array(m).fill(0);
 //     function DFS(L) {
-//         if (L === m) { // 두번 뽑았으면 
+//         if (L === m) { // 두번 뽑았으면
 //             console.log(tmp, answer);
 //             answer.push(tmp.slice());
 //         }
@@ -1782,3 +1782,135 @@
 //     return answer;
 // }
 // console.log(solution(3, 2));
+
+/// 8 - 9 동전교환
+
+// function solution(m, arr) {
+//   let answer = Number.MAX_SAFE_INTEGER;
+//   let n = arr.length;
+//
+//   function DFS(L, sum) {
+//     if(sum > m) return;
+//     if(L >= answer) return;
+//     if(sum === m) {
+//       console.log(L, sum);
+//       return answer = Math.min(answer, L);
+//     } else {
+//       for(let i = 0; i < n; i++) {
+//         DFS(L + 1, sum + arr[i]);
+//       }
+//     }
+//   }
+//
+//   DFS(0, 0);
+//   return answer;
+// }
+//
+// let arr = [1, 2, 5];
+// console.log(solution(15, arr));
+
+
+/// 8 - 10 순열구하기
+
+// function solution(m, arr) {
+//   let answer = [];
+//   let tmp = Array(m).fill(0);
+//   let ch = Array(arr.length).fill(0);
+//   let n = arr.length;
+//
+//   function DFS(L) {
+//     if(L === m) {
+//       answer.push([...tmp]);
+//     } else {
+//       for(let i = 0; i < n; i++) {
+//         if(ch[i] === 0) {
+//           tmp[L] = arr[i];
+//           ch[i] = 1;
+//           DFS(L + 1)
+//           ch[i] = 0;
+//           }
+//         }
+//       }
+//     }
+//   DFS(0);
+//   return answer;
+// }
+//
+// let arr = [3 ,6, 9];
+// console.log(solution(2, arr));
+
+
+/// 8 - 11 팩토리얼
+
+// function solution(n) {
+//   let answer;
+//   function DFS(n) {
+//     if(n === 1) return 1;
+//     else return n * DFS(n - 1);
+//   }
+//   answer = DFS(n);
+//   return answer;
+// }
+//
+// console.log(solution(5));
+
+
+/// 8 - 12 조합수(메모이제이션)
+            // function solution(n, r){
+            //     let answer=[];
+            //     let dy= Array.from(Array(35), () => Array(35).fill(0));
+            //
+            //     function DFS(n, r){
+            //         if(dy[n][r]>0) return dy[n][r];
+            //         if(n===r || r===0) return 1;
+            //         else return dy[n][r]=DFS(n-1, r-1)+DFS(n-1, r);
+            //     }
+            //     answer=DFS(n, r);
+            //     return answer;
+            // }
+            // console.log(solution(5, 3));
+
+//
+
+/// 8 - 13 수열추측하기
+
+// function solution(n, f){
+//       let answer, flag=0;
+//       let dy= Array.from(Array(11), () => Array(11).fill(0));
+//       let ch=Array.from({length:n+1}, ()=>0);
+//       let p=Array.from({length:n}, ()=>0);
+//       let b=Array.from({length:n}, ()=>0);
+//       function combi(n, r){
+//           if(dy[n][r]>0) return dy[n][r];
+//           if(n===r || r===0) return 1;
+//           else return dy[n][r]=combi(n-1, r-1)+combi(n-1, r);
+//       }
+//       function DFS(L, sum){
+//           if(flag) return;
+//           if(L===n && sum===f){
+//               answer=p.slice();
+//               flag=1;
+//           }
+//           else{
+//               for(let i=1; i<=n; i++){
+//                   if(ch[i]===0){
+//                       ch[i]=1;
+//                       p[L]=i;
+//                       DFS(L+1, sum+(b[L]*p[L]));
+//                       ch[i]=0;
+//                   }
+//               }
+//           }
+//       }
+//       for(let i=0; i<n; i++){
+//           b[i]=combi(n-1, i);
+//       }
+//       DFS(0, 0);
+//       return answer;
+//   }
+//
+//   console.log(solution(4, 16));
+
+
+
+// ex n 이 5인경우에는 nC0, nC1 .... nCn 까지간다.
