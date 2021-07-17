@@ -1991,39 +1991,124 @@
 // console.log(solution(5, arr)); // (Node 갯수, 간선정보);
 
 
+// 9 -3 Node개수가 많을 때 적용 (인접List);
 
-// 9 - 3 Node개수가 많을 때 적용
+//1. 노드에서 갈 수 있으면 list에 넣어준다.
+//2. DFS() 안의 for문의 i 는 g[v].length 만큼만 돌아주면 된다.
 
-// function solution(n, arr){  
-//     let answer=0;
-//     let graph=Array.from(Array(n+1), ()=>Array());
-//     let ch=Array.from({length:n+1}, ()=>0);
-//     let path=[]
-//     for(let [a, b] of arr){
-//         graph[a].push(b);
+// function solution(n, arr) {
+//         let answer = 0; // 답이 들어갈 부분
+//         let graph = Array.from(Array(n + 1), () => Array());  // 인접리스트 이기때문에 행은 노드의 개수만큼해주고 열은 빈배열로해준다.
+//         let ch = Array.from({length:n + 1}, () => 0); // 중복방지를 위한 check 배열
+
+//         path = []; // 길을 보기위한 배열
+//         for(let [a, b] of arr) { 
+//             graph[a].push(b);    // graph의 행에 인접한 리스트를 만들기위해 간선의 도착지첨을 넣어준다.
+//             //graph[a][b] = 1; 까지 주면 무방향,인접 그래프이다.
+//         }
+//         console.log(graph); // 갈 수 있는 정점들을 나열해 준다.
+
+//         function DFS(v) {
+//             if(v === n) { // n번째 노드에 도착하게 되면 
+//                 answer++; // 정답에 += 해준다.
+//                 console.log(path); // 끝까지 도달했으면 오는 경로인 graph[v][i]가 들어가 있을 것이다. // 
+//                                    //1을 ch를 안해줬기때문에 방문하지 않은 것으로 뜰 것이다. 💢주의💢
+//             }
+//             else {
+//                 for(let i = 0; i <= graph[v].length; i++) { // 0번 인덱스부터
+//                     if(ch[graph[v][i]] === 0) {  // 만약 check배열의 graph[v][i] === 0 이라면 즉 갔던길이 아니라면? 
+//                         ch[graph[v][i]] = 1; // 그 길을 갈 것이기 때문에 1로 바꿔주고
+//                         path.push(graph[v][i]); // 내가 통 그 길을 통해 도착한 node 번호를 넣어준다.
+//                         DFS(graph[v][i]); // 이부분이 그 길을 통해 직접적으로 가는 부분
+//                         ch[graph[v][i]] = 0; // 갔다가 돌아왔으니 이 길을 사용한길이 아니므로 다시 0으로 change.
+//                         path.pop(); // 내가 간 길을 빼준다.
+//                     }
+//                 }
+//             }
+//         }
+    
+//         path.push(1); // 1번은 무조건 가기 때문에 넣어준다.
+//         ch[1] = 1; // 체크도 해줘야함.
+//         DFS(1);
+//         return answer;
 //     }
-//     function DFS(v){
-//         if(v===n){
+
+//     let arr=[[1, 2], [1, 3], [1, 4], [2, 1], [2, 3], [2, 5], [3, 4], [4, 2], [4, 5]];
+// console.log(solution(5, arr));
+
+
+// function solution(arr) {
+//     let answer = 0;
+//     let L = arr.length;
+//     let graph = Array.from(Array(L + 1), () => Array(L + 1).fill(0)); // graph 배열
+//     let ch = Array(L + 1).fill(0); // 체크배열
+//     console.table(graph);
+//     console.log(ch);
+//     path = [];
+//     for(let i = 1; i <= L; i++) {
+//         for(let j = 1; j <= L; j++) {
+//             graph[i][j] = arr[i - 1][j - 1];
+//         }
+//     }
+//     console.table(graph);
+
+//     function DFS(y, x) {
+//         if(y === L && x === L) {
 //             answer++;
 //             console.log(path);
+//         } else {
+//             for(let i = 1; i <= L; i++) { // 행으로 내려가면서 보는 부분
+//                 for(let j = 1; j <=L; j++) {
+//                     if(ch[i] === 0) {
+//                         ch[i] = 1;
+//                         DFS()
+//                     }
+
+//                 }
+
 //         }
-//         else{
-//             for(let nv of graph[v]){
-//                 if(ch[nv]===0){
-//                     path.push(nv);
-//                     ch[nv]=1;
-//                     DFS(nv);
-//                     ch[nv]=0;
-//                     path.pop();
+//     }
+//     DFS(1, 1); // 미로의 start 부분
+//     return answer;
+// }
+
+
+/// 9 - 4 미로탐색 (DFS 전체탐색);
+
+// function solution(board) {
+//     let answer = 0; // 정답의 개수
+//     let dx = [-1, 0, 1, 0]; // x 축으로 이동할 방향 [상, 우 ,하 ,좌];
+//     let dy = [0, 1, 0, -1]; // y축으로 이동할 방향 [상, 우, 하, 좌];
+//     //왜냐? [-1][0] 은 행만 위로 줄어들고 열은 그대로 이기 때문에
+//     function DFS(x, y) { // x, y 를 변경시켜준다.
+//         if(x === 6 && y === 6) {
+//             answer++; // [6][6]에 도착하게 되면 ++ 해준다.
+//         }
+//         else { // 종점이 아니라면?
+//             for(let k = 0; k < 4; k++) { // 상화좌우를 해주기 위한 for문 i 로 해도된다.
+//                 let nx = x + dx[k]; // 변경된 x 좌표는? x + dx[k]라는 것은 즉 현재좌표(x) + 변경할 좌표위치(k 가 0이면 위로 올릴꺼다.)
+//                 let ny = y + dy[k]; // 변경될 y 좌표
+//                 if(nx >= 0 && nx <=6 && ny >= 0 &&  ny <= 6 && board[nx][ny] === 0) { //만일 변경된 좌표가 0이상 6이하인경우에는 
+//                     //올바른 좌표일것이고 y 좌표도 마찬가지 그리고 그 옮겨진 좌표 nx , ny 가 벽이아니라 길인 0 이라면 명령을 실행가능하다.
+//                     board[nx][ny] = 1; // 지나왔으니 1로 바꿔주고.
+//                     DFS(nx, ny); // 현재좌표를 변경해 준다.
+//                     board[nx][ny] = 0; // 돌아왔으니 현재좌표를 0으로 바꿔준다.
 //                 }
 //             }
 //         }
 //     }
-//     ch[1]=1;
-//     path.push(1);
-//     DFS(1);
+
+//     board[0][0] = 1; // 시작좌표이기 때문에 1로 바꿔줘야함.
+//     DFS(0, 0);
 //     return answer;
 // }
 
-// let arr=[[1, 2], [1, 3], [1, 4], [2, 1], [2, 3], [2, 5], [3, 4], [4, 2], [4, 5]];
-// console.log(solution(5, arr));
+// let arr=[[0, 0, 0, 0, 0, 0, 0], 
+// [0, 1, 1, 1, 1, 1, 0],
+// [0, 0, 0, 1, 0, 0, 0],
+// [1, 1, 0, 1, 0, 1, 1],
+// [1, 1, 0, 0, 0, 0, 1],
+// [1, 1, 0, 1, 1, 0, 0],
+// [1, 0, 0, 0, 0, 0, 0]];
+
+// console.log(solution(arr));
