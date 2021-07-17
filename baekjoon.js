@@ -1,6 +1,50 @@
 // let fs = require('fs');
 // let input = fs.readFileSync('/dev/stdin').toString().split(' ');
 
+
+// -- Bronze II 분해합
+// function solution(n) {
+//     n = Number(n);
+//     let answer = 0;
+//     let num = n; 
+
+//     for(let i = 1; i < num; i++) { // 1부터 돌아갈 부분
+//         let sum = i;
+//         let A = String(i).split(''); // ['2', '1', '6']
+//         for(let x of A) {
+//             sum += Number(x);
+//         }
+//         if(sum === n) {
+//             answer = i;
+//             break;
+//         }
+//     }
+//     return answer;
+// }
+
+// let input = "101";
+// console.log(solution(input));
+
+//  N번째 큰 수 (🥈실버 5티어)
+
+// let input0 = `4
+// 1 2 3 4 5 6 7 8 9 1000
+// 338 304 619 95 343 496 489 116 98 127
+// 931 240 986 894 826 640 965 833 136 138
+// 940 955 364 188 133 254 501 122 768 408`;
+
+// let input = input0.split('\n');
+// input.shift();
+
+// let n = 3;
+// let answer = [];
+// for(let x of input) {
+//       x = x.split(' ');
+//       x.sort((a, b) => b - a);
+//       answer.push(x[n - 1]);
+// }
+// console.log(answer.join('\n'));
+
 /// 쉽게 푸는 문제 (🥈실버 4티어)
 
 // let aaa = `3 7`;
@@ -47,25 +91,7 @@
 // }
 // console.log(answer);
 
-//  N번째 큰 수 (🥈실버 5티어)
 
-// let input0 = `4
-// 1 2 3 4 5 6 7 8 9 1000
-// 338 304 619 95 343 496 489 116 98 127
-// 931 240 986 894 826 640 965 833 136 138
-// 940 955 364 188 133 254 501 122 768 408`;
-
-// let input = input0.split('\n');
-// input.shift();
-
-// let n = 3;
-// let answer = [];
-// for(let x of input) {
-//       x = x.split(' ');
-//       x.sort((a, b) => b - a);
-//       answer.push(x[n - 1]);
-// }
-// console.log(answer.join('\n'));
 
 // 소수 (🥈실버 4티어)
 
@@ -160,52 +186,65 @@
 
 
 
-let input = `6
-1 2 3 4 5 6
-2 1 1 1`;
-input = input.split('\n');
-let numbers = input[1].split(' ').map(e => +e); // 문자를 숫자로 바꿔준다.
-console.log(numbers);
-let operators = input[2].split(' ').map(e => +e);
-console.log(operators);
+// let input = `6
+// 1 2 3 4 5 6
+// 2 1 1 1`;
+// input = input.split('\n');
+// let numbers = input[1].split(' ').map(e => +e); // 문자를 숫자로 바꿔준다.
+// console.log(numbers);
+// let operators = input[2].split(' ').map(e => +e);
+// console.log(operators);
 
-let max = Number.MIN_SAFE_INTEGER;
-let min = Number.MAX_SAFE_INTEGER;
+// let max = Number.MIN_SAFE_INTEGER;
+// let min = Number.MAX_SAFE_INTEGER;
 
 
-function operation(num1, num2, operator) {
-    switch(operator) {
-        case 0:
-            return num1 + num2;
-        case 1:
-            return num1 - num2;
-        case 2:
-            return num1 * num2;
-        case 3:
-            // 자바스크립트의 나누기, Math.floor로 C++의 나누기 연산 구현
-            const result = num1 >= 0 ? Math.floor(num1/num2) : -Math.floor(-num1/num2); // 그냥 둘다정수이면 나누기해서 소수점없애주고 안그러면 나누다음에 -붙여줘서 정수로 만들어준다는거지
-            return result;
-    }
-}
+// function operation(num1, num2, operator) {
+//     switch(operator) {
+//         case 0:
+//             return num1 + num2;
+//         case 1:
+//             return num1 - num2;
+//         case 2:
+//             return num1 * num2;
+//         case 3:
+//             // 자바스크립트의 나누기, Math.floor로 C++의 나누기 연산 구현
+//             const result = num1 >= 0 ? Math.floor(num1/num2) : -Math.floor(-num1/num2); // 그냥 둘다정수이면 나누기해서 소수점없애주고 안그러면 나누다음에 -붙여줘서 정수로 만들어준다는거지
+//             return result;
+//     }
+// }
 
-// 경우의 수가 많지 않기 때문에  완전탐색(DFS)로 모든 경우를 검사한다.
-function DFS(index, result, operators) {
-    if(index === numbers.length) {
-        max = Math.max(max, result);
-        min = Math.min(min, result);
-    }
+// // 경우의 수가 많지 않기 때문에  완전탐색(DFS)로 모든 경우를 검사한다.
+// function DFS(index, result, operators) {
+//     if(index === numbers.length) {
+//         max = Math.max(max, result);
+//         min = Math.min(min, result);
+//     }
 
-    for(let i = 0; i < 4; i++) {
-        if(operators[i] > 0) {
-            const newOpers = JSON.parse(JSON.stringify(operators));
-            newOpers[i] -= 1;
-            console.log(newOpers, operators);
+//     for(let i = 0; i < 4; i++) {
+//         if(operators[i] > 0) {
+//             const newOpers = JSON.parse(JSON.stringify(operators));
+//             newOpers[i] -= 1;
+//             console.log(newOpers, operators);
 
-            DFS(index + 1, operation(result, numbers[index], i), newOpers);
-            console.log(result); // index는 숫자의 갯수를 체크하기위해서 사용 
-        }
-    }
-}
-DFS(1, numbers[0], operators);
-console.log(max ? max : 0);
-console.log(min ? min : 0);
+//             DFS(index + 1, operation(result, numbers[index], i), newOpers);
+//             console.log(result); // index는 숫자의 갯수를 체크하기위해서 사용 
+//         }
+//     }
+// }
+// DFS(1, numbers[0], operators);
+// console.log(max ? max : 0);
+// console.log(min ? min : 0);
+
+
+
+// input의 가장 작은 생성자를 구해내라.
+// 1. N의 분해합의 합은 N과 N을 이루는 각 자리수의 합을 말한다. ex) 267의 분해합은 267 + 2 + 6 + 7 = 282
+// 2. 어떤 자연수 M의 분해합이 N인 경우 M을 N의 생성자라고한다. ex) 245의 분해합은 256이 되고 따라서 245는 256의 생성자가 된다.
+// 3. 경우에 따라 생성자가 없을 수도 있고 2개 이상 일 수도 있다.
+
+
+
+
+// const fs = require('fs');
+// // const input = fs.readFileSync('/dev/stdin').toString().trim();
