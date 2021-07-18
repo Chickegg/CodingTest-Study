@@ -2112,3 +2112,60 @@
 // [1, 0, 0, 0, 0, 0, 0]];
 
 // console.log(solution(arr));
+
+
+// 이진트리 넓이우선탐색(BFS) - 최단거리, Level 탐색
+// 1. 출발점을 que에 넣고 que에서 나온 node와 연결된 node를 que에 넣는다. 그럼 나온 node는 역활을 다 한 것이다.
+// 2, 2번 node를 또 빼네고 2번과 연결된것을 넣는다. 3번 node를 빼내고 3번과 연결된 것을 넣는다.
+// 3  while문을 돌다가 que에 남은것이 없게되면 멈춰준다.
+// 4. 이것은 무슨의미인가❓ 
+
+// 5. 상태tree로 생각하는 것이 좋다.
+// 6. 출발 지점에서 도착 지점으로 가는데 그 길의 최단 거리는 얼마이냐? 이럴때 BFS 이진트리 넓이우선탐색 Level 탐색을 한다.
+
+// 7. 출발지점이 que에 들어가면 출발 지점에서 한번만에 갈 수 있는 곳을 탐색하고 도착지점이 포함되어 있는지를 본다.
+// 8. 만일 없더라❓ Level 2 에서도 해본다 . 이 떄 Level 2는 두번만에 갈 수 있는 곳이다.
+
+// function solution() {
+//     let answer ="";
+//     let queue = [];
+//     queue.push(1);
+//     while(queue.length){
+//         let v = queue.shift(); // queue에서 앞에서 하나를빼낸다.
+//         answer += v + " ";
+//         for(let nv of [v * 2, v * 2 + 1]) { // 이렇게 하면 어떻게되나? v*2 가 nv에 대입되고 그후에 v*2+1 가 nv에 대입된다.
+//             if(nv > 7) continue; // 파이썬 pass와 비슷하다.
+//             queue.push(nv);  // v 가 1이면 2,3 이 push 뒤로 들어가고 2일 때는 4 와 5가 들어간다. 
+//         }
+//     }
+//     return answer;
+// }
+
+// console.log(solution());
+
+
+function solution(s, e) {
+    let answer = 0;
+    let ch = Array.from({length:10001}, () => 0);
+    let dis = Array.from({length:10001}, () => 0);
+    let queue = [];
+    queue.push(s);
+    ch[s] = 1; // 송아지의 위치를 1로해준다. 나머지는 0
+    dis[s] = 0; // 현수의 출발지점
+
+    while(queue.length) { //
+        let x = queue.shift(); // 앞에서 하나 빼낸다.
+        for(let nx of [x - 1, x + 1, x + 5]) { // 3가지 방법이 있으니 3가닥으로 뻗는다.
+            // nx 는 x 지점의 자식node이다. 즉 x 는 nx의 부모node.
+            if(nx === e) return dis[x] + 1;// 부모노드를 return 만든다.
+            if(nx> 0 && nx <= 10000 && ch[nx] === 0) {
+                ch[nx] = 1;
+                queue.push(nx); 
+                dis[nx] = dis[x] + 1; // dis의 자식node는 부모노드보다 거리가 한번 더 길기 때문에 해준다.
+            }
+        }
+    }
+    return answer;
+}
+
+console.log(solution(8, 3));
