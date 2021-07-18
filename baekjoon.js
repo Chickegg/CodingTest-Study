@@ -25,6 +25,130 @@
 // let input = "101";
 // console.log(solution(input));
 
+
+//브루트포스 [덩치](🥈실버 5티어)
+
+// 키와, 몸무게가 둘다 크면 덩치가 크다고 보고 등수는 자기보다 큰사람의수 + 1 이다. 아무도없다면 1등이되겠지?
+// 
+// function solution(arr) {
+//     let answer = [];
+//     let list = arr.split('\n');
+//     list.shift();
+//     let SplitList = [];
+//     for(let x of list) { // 문자열을 숫자로 이루어진 배열로 나눠주기
+//         SplitList.push(x.split(' '));
+//     }
+
+//     let L = list.length;
+//     let Rank = 1; // 자기보다 큰 사람이 없을 때 
+//     for(let x of SplitList) { // 등수를 볼 사람 x
+//         for(let i = 0; i < L; i++) { // 자기를 제외한 대상 for문
+//             let sum = 0;
+//             if(SplitList[i] !== x) {  // 자기 자신이 아니면 비교를헤줘야지? 그걸위한 조건문이다.
+//                 if(SplitList[i][0] > x[0]) sum++; // 키크면++
+//                 if(SplitList[i][1] > x[1]) sum++; // 몸무게무거우면++
+//             }
+//             if(sum === 2) { // 둘다크면❓
+//                 Rank++; // 등수 업❕
+//             }
+//         }
+//         answer.push(Rank); 
+//         Rank = 1; // Rank를 초기화
+//     }
+//     return answer.join(' '); // 문자열 상태로 출력
+// }
+
+// let input = `5
+// 55 185
+// 58 183
+// 88 186
+// 60 175
+// 46 155`;
+// console.log(solution(input));
+
+
+
+/// 브루트 포스 [체스판 다시 칠하기] (🥈실버 5티어) 
+
+
+// function solution(arr) {
+//     let answer = [];
+//     let input = arr.split('\n');
+//     let NM = input.shift().split(' ').map(ele => parseInt(ele));
+//     let N = NM.shift();
+//     let M = NM.shift();
+    
+//         const WhiteFirst = [
+//         'WBWBWBWB',
+//         'BWBWBWBW',
+//         'WBWBWBWB',
+//         'BWBWBWBW',
+//         'WBWBWBWB',
+//         'BWBWBWBW',
+//         'WBWBWBWB',
+//         'BWBWBWBW'
+//     ];
+//     const BlackFirst = [
+//         'BWBWBWBW',
+//         'WBWBWBWB',
+//         'BWBWBWBW',
+//         'WBWBWBWB',
+//         'BWBWBWBW',
+//         'WBWBWBWB',
+//         'BWBWBWBW',
+//         'WBWBWBWB'
+//     ];
+
+//     function WhiteBorder(y, x) { // 행은 y축 열을 x 축이니깐
+//         let count = 0;
+        
+//         for(let i = y; i < y + 8; i++) {  // 여긱 행부분이지? input에 i랑 j가 들어가지?  그니깐 i 는 결국 i + 7 < y + 8 이렇게 되는거구나.
+//             for(let j = x; j < x + 8; j++) { // 최대 x 는 2지? 이건 index번호지? 그렇다면 여기서는 왜 + 8 까지인가?
+//                 if(input[i][j] !== WhiteFirst[i - y][j - x]) count++; // 만일  WhiteBorder(3, 3)으로 들어왓다고 치자?
+//                 // 그럼 for(let i = 3; i < 3 + 8; i++) {
+//                          // for(let j = 3; j < 3 + 8; j++) {
+//                              // if(input[3][3] !== WhiteFirst[3][3]) count++ 는 말이 안된다. 왜❓
+//                              // 이 경우에 input[3][3]은 시작지점인데 WhiteFirst[3][3]은 말그대로 3행 3열의 부분이기 때문이다.
+//                              // 그렇다면 이경우에는 input[i][j] !== WhiteFirst[i - y][j - x] 를해줘야 동일한 부분이 된다.
+//             }
+//          }
+//         return count;
+//     }
+
+//     function BlackBorder(y, x) { // 행은 y축 열을 x 축이니깐
+//         let count = 0;
+
+//         for(let i = y; i < y + 8; i++) {
+//             for(let j = x; j < x + 8; j++) {
+//                 if(input[i][j] !== BlackFirst[i - y][j - x]) count++;
+//             }
+//         }
+//         return count;
+//     }
+
+//     for(let i = 0; i + 7 < N; i++) {
+//         for(let j = 0; j + 7 < M; j++) { // 인덱스번호이기때문에 + 7 이고 이것을 넘어가면 체스판을 벗어난다. 여기는 N미만이니깐 0부터 7까지면 8번이지?
+//             answer.push(WhiteBorder(i, j)); // 시작지점이 화이트인 경우의 고쳐야 하는 수
+//             answer.push(BlackBorder(i, j)); // 시작지점이 블랙인 경우에 고쳐야 하는 수
+//         }
+//     } // 행 부분
+//     return Math.min(...answer); // 왜냐 ? []를 넣으면 배열이 되기때문에... 
+// }
+
+// let input = `10 13
+// BBBBBBBBWBWBW
+// BBBBBBBBBWBWB
+// BBBBBBBBWBWBW
+// BBBBBBBBBWBWB
+// BBBBBBBBWBWBW
+// BBBBBBBBBWBWB
+// BBBBBBBBWBWBW
+// BBBBBBBBBWBWB
+// WWWWWWWWWWBWB
+// WWWWWWWWWWBWB`;
+
+// console.log(solution(input));
+
 //  N번째 큰 수 (🥈실버 5티어)
 
 // let input0 = `4
