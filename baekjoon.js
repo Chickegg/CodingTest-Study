@@ -372,3 +372,212 @@
 
 // const fs = require('fs');
 // // const input = fs.readFileSync('/dev/stdin').toString().trim();
+
+
+
+// const fs = require('fs');
+// let input = fs.readFileSync('/dev/stdin').toString().trim().split('\n');
+
+// let input = `6 5
+// 1 2
+// 2 5
+// 5 1
+// 3 4
+// 4 6`
+// input = input.split('\n');
+// const NM = input[0].split(' '); 
+// const n = +NM[0]; // 정점의 개수
+// const m = +NM[1]; // 간선의 개수
+// let links = [];
+// for(let i = 1; i < input.length; i++) {
+//     links.push(input[i].split(' ').map((e) => +e));
+// } // 결론은 NM을 제외한 나머지부분들을 각각 나눠준거
+// let graph = Array.from(Array(n + 1), () => Array(n + 1).fill(0));
+// let ch = Array(n).fill(0);
+
+// // 양방향 그래프를 만드는 부분
+// console.log(ch); 
+// for(let [s, e] of links) {
+//     graph[s][e] = 1;
+//     graph[e][s] = 1;
+// }
+// console.table(graph);
+
+
+// // 정점의 개수만큼 DFS 실행
+
+// let count = 0;
+// function DFS(v) {
+//     ch[v] = 1;
+//     for(let i = 1; i < graph.length; i++) {
+//         if(graph[v][i] === 1 && ch[v] === 0) { 
+//             console.log(i);
+//             DFS(i);
+//         }
+//     }
+// }
+
+// for(let i = 1; i < n; i++) {
+//     if(ch[i] === 0) {
+//         count++;
+//         DFS(i);
+
+//     } 
+// }
+
+// console.log(count);
+
+
+// 👍 각 트리의 요소의 개수 구하기
+// DFS: 각 요소의 개수 (🥈실버 1티어)
+
+// function solution(arr) {
+//     arr = arr.split('\n');
+//     let list = [];
+//     // list에 자료를 담는다.
+//     for(let i = 0; i < arr.length; i++) {
+//         list.push(arr[i].split(' ').map((ele) => Number(ele)));
+//     }
+//     let nm = list.shift();
+//     let n = nm.shift(); // 노드의 수
+//     let m = nm.shift(); // 간선의 수
+//     let answer = [];
+
+//     let graph = Array.from(Array(n + 1), () => Array(n + 1).fill(0)); // 그래프 부분
+//     let ch = Array(n + 1).fill(0); // 체크배열
+
+//     // 그래프를 채워야겠지?
+//     for(let [x, y] of list) {
+//         graph[x][y] = 1;
+//         graph[y][x] = 1;
+//     } 
+
+//     let count = 0;
+//     function DFS(v) {
+//         // console.log("DFS" + v + "입니다.");
+//         ch[v] = 1;
+//         for(let i = 1; i < graph.length; i++) { // v 로 들어온 부분을  for문을 통해서 갈 수 있는 지 없는지 판단 해볼 것입니다.
+//             if(ch[i] === 0 && graph[v][i] === 1) { // v번 node와 연결된 node이고 가보지 않은 node라면?
+//                 graph[v][i] = 0; // 가볼 것이기 때문에 0으로 바꿔줍니다.
+//                 count++;
+//                 DFS(i); // 가는 node부터 또 탐색 시작
+//             }
+//         }
+//     }
+
+//     // DFS를 호출하는 부분
+//     // i는 출발 노드가 될 것이다.
+//     for(let i = 1; i <= n; i++) {  
+//         if(ch[i] === 0 ) { // 가보지 않은 노드라면?
+//             DFS(i); // DFS 함수 호출해준다. 즉 가본다.
+//             // 탐색이 다 끝나면 해준다.
+//             answer++; // 호출이끝나면 count++
+//         }
+
+//     }
+//     DFS(0);
+
+//     return answer;
+// }
+
+// let input = `6 2
+// 1 3
+// 2 3`
+// console.log(solution(input)); 
+
+
+
+////////////// 🐲 ㅈ ㅓㄴ소바 ㄹ 문제 🐲
+// DFS: 트리를 나누고 각 트리의 개수 구하기 (🥈실버 1++티어)
+// 한개의 트리를 2개로 나눠서 각각의 요소수를 비교해서 요소수의 차이가 제일 적은 것을 답으로 도출하자.
+
+
+// 몇개의 트리인지 각각 트리의 노드의 개수는 얼마인지 구해주는 함수
+// function nodeAmount(arr) {
+//     let answer = [];
+//     let m = arr.length + 1; // 간석의 개수 // 노드가 한개없어지고
+//     let n = m + 1;  // 노드의 개수 // 간선이 한개 없어진 상태이다.
+    
+//     let graph = Array.from(Array(n + 1), () => Array(n + 1).fill(0)); // 노드들의 인접노드를 볼 수 있는 그래프
+//     let ch = Array(n + 1).fill(0); // check Array
+
+
+//     for(let [x, y] of arr) {
+//         // console.log(x, y);
+//         graph[x][y] = 1;
+//         graph[y][x] = 1;
+//     }
+
+//     let count = 0; // 두개로 나눈 트리를 탐색하여 각각의 트리의 요소개수 합을 넣어줄 부분.
+//     let ex = 0; 
+
+//     function DFS(v) {
+//         ch[v] = 1; // 현재node는 탐색한다 즉 탐색했다.
+//         for(let i = 1; i < graph.length; i++) { // 여기서는 노드들을 다 둘러볼 것이기 때문에 graph의 길이로 해준다.
+//             if(ch[i] === 0 && graph[v][i] === 1) {
+//                 count++; // 현재 트리의 포함되는 node의 개수++
+//                 graph[v][i] = 0; // 무한반복되지 않도록 탐색했다는 뜻으로 바꿔준다.
+//                 DFS(i);
+//             }
+//         }
+//     }
+
+//     for(let i = 1; i <= n; i++) {
+//         if(ch[i] === 0) {
+//             count++;
+//             DFS(i);
+//             ex++ // 몇개의 트리일지 더해주는 부분
+//             answer.push(count);
+//             count = 0;
+//             // console.table(graph);
+//         }    
+//     }
+//     DFS(0);
+//     // console.log(ex);
+//     return answer;
+// }
+
+
+// // 2개로 나눈 트리 각각의 노드 개수를 nodeAmount()함수로부터 받아와 
+// // 차이의 최소를 return 받는 부분.
+// function nodeMin(arr) {
+//     let list = [];
+//     let answer = Number.MAX_SAFE_INTEGER;
+//     for(let i = 0; i < arr.length; i++) {
+//         let arrcopy1 = arr.slice();
+//         let arrcopy2 = arrcopy1.splice(i, 1);
+//         // console.log(arrcopy1)
+//         // console.log(arrcopy2);
+//         list.push(nodeAmount(arrcopy1));
+//     }
+//     for(let x of list) {
+//         x = Math.abs(x[0] - x[1]);
+//         console.log(x);
+//         answer = Math.min(answer, x);
+//     }
+//     return answer;
+// }
+
+// // / case 1, 2, 3
+// // let input = [[1, 2],
+// // [2, 3],
+// // [2, 4],
+// // [4, 5],
+// // [4, 6],
+// // [4, 8],
+// // [7, 8],
+// // [8, 9]];
+
+// //  let input = [[1, 2],
+// //  [2, 3],
+// //  [3, 4]];
+
+// let input = [[1, 2],
+// [2, 3],
+// [3, 4],
+// [3, 5],
+// [5, 6],
+// [6, 7]];
+// console.log(nodeMin(input))
+
+
