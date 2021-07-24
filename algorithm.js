@@ -2301,3 +2301,74 @@
 // [1, 0, 1, 0, 1, 0, 0]];
 
 // console.log(solution(arr));
+
+
+
+//// 동적 계획 법 
+//// 어떤 매우 큰 문제가 있을 때 아주 작은 단위의 문제로 생각하고 풀어보고
+//// 그 범위를 조금씩 넓혀본다. 그러면서 이전담에 뭘 추가했더니 다음 답이 나온다는 것을 
+//// 점화식이라고 하는데 그것을 구하는 것이다.
+
+// dy = [] 를 만든다. dynamic table. 다 0으로 초기화 해 놓는다.
+// 직관적으로 볼 수 있는 부분은 기록해 둔다. dy[1] = 1이다. dy[2] = 2다.. 이런것처럼 
+
+
+// 계단 오르기
+// function solution(n) {
+//     let answer = 0;
+//     let dy = Array(n + 1).fill(0);
+//     dy[1] = 1;
+//     dy[2] = 2;
+//     for(let i = 3; i < n; i++) {
+//         dy[i] = dy[i - 2] + dy[i - 1];
+
+//     }
+//     answer = dy[n];
+//     return answer;
+// }
+
+// console.log(solution(7));
+
+
+/// 돌다리 건너기
+// function solution(n) {
+//     let answer = 0;
+//     let dy = Array(n + 1).fill(0);
+//     dy[0] = 1;
+//     dy[1] = 1;
+//     dy[2] = 2;
+//     for(let i = 3; i <= n; i++) {
+//         dy[i] = dy[i - 3] + dy[i - 2] + dy[i - 1];
+//         console.log(dy);
+//     }
+//     answer = dy[n];
+//     return answer;
+// }
+
+// console.log(solution(7))
+
+
+///최대 부분 증가 수열
+
+// function solution(arr) {
+//     let answer = 0;
+//     let dy = Array(arr.length).fill(0);
+//     dy[0] = 1;
+
+
+//     for(let i = 1; i < arr.length; i++) { // arr[i]가 내가 정한 증가수열의 마지막이 된다.
+//         let max = 0;
+//         for(let j = i - 1; j >= 0; j--) { // arr[i]의 앞의 숫자들을 비교한다.
+//             if(arr[j] < arr[i] && dy[j] > max) { //arr[j] 가 arr[i]보다 작고 dy[j] 가 max 보다 크다면?
+//                 max = dy[j]; // 맥스는 dy[j]가 된다.
+//             }
+//         }
+//         dy[i] = max + 1; // dy[i] = 맥스에 + 1한 값 
+//         answer = Math.max(answer, dy[i]); //answer 는 dy[i] 와 answer중 제일 큰값.
+//     }
+//     console.log(dy);
+//     return answer;
+// }
+
+// let arr = [5, 3, 7, 8, 6, 2, 9 ,4];
+// console.log(solution(arr));
