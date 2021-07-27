@@ -581,3 +581,88 @@
 // console.log(nodeMin(input))
 
 
+// let input = 120;
+// let answer = '';
+// for(let i = 1; i <= input; i++) {
+//     answer += String(i);
+// }
+// console.log(answer.length);
+
+// const fs = require('fs');
+// const input = fs.readFileSync('/dev/stdin').toString().trim();
+
+
+
+// 자리수로 나눠서 생각하면 구현이 쉽다.
+// N이 주어졌을 때, 1의 자리가 있는 수는 1부터 N까지이다. 따라서 1의 자리가 있는 수는 (N - 1 + 1)이다. 1의자리가 있는 수는 120 까지.
+// 10의 자리가 있는 수는 10부터 N 까지이다. 즉 (N - 10 + 1) 10부터 120 까지 즉 120 - 10 + 1 이다.
+// 100의 자리가 있는 수는 100부터 N 까지이다. 즉(N - 100 + 1) 이다.
+
+// 그렇다면 이것을 코드로 구현한다면?
+
+// 120이라고 했을 때?
+
+// input = 120;
+
+// // input 
+
+// // 120 + 111 + 21 = 233
+// let answer = 0;
+// let i = 1;
+// while(i <= input) {
+//     answer += (input - i + 1); 
+//     i = i * 10;
+//     console.log(answer);
+// }
+// console.log(answer);
+
+// 동전 1
+let input = `3 10
+1
+2
+5`;
+
+//3가지 동전의 종류 
+
+input = input.split('\n');
+
+let input0 = input.shift().split(' ').map(ele => Number(ele));
+let n = input0.shift();
+let k = input0.shift();
+input = input.map(ele => Number(ele));
+console.log(n,k, input);
+
+let answer = 0;
+let tmp = [];
+let count = 0;
+let st = [];
+function DFS(L, sum) {
+
+    if(sum > k) {
+        return st = [];
+    } 
+
+    if(sum === k) {
+        tmp.push(st);
+        answer++;
+        console.log(tmp);
+        // st = [];
+
+    } else {
+        for(let i = 0; i < n; i++) {
+            st.push(input[i]);
+            DFS(L + 1, sum + input[i]);
+            console.log("DFS 끝")
+            // st = [];
+        }
+    }
+    // st = [];
+}
+DFS(0, 0);
+
+console.log(answer);
+
+
+// 1111111111 111111112 11111122 1111222 112222 22222 111115 11125 1225 55
+
+// 10 9 8 7 6 5 6 
