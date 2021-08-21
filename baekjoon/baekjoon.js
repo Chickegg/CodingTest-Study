@@ -638,21 +638,25 @@ let count = 0;
 let st = [];
 function DFS(L, sum) {
 
-    if(sum > k) {
-        return st = [];
-    } 
-
-    if(sum === k) {
+    if(sum > k) return st = [];
+    st.sort((a, b) => a - b);
+    // console.log(st);
+    // st.pop();
+    if(sum === k ) {
         tmp.push(st);
         answer++;
+        // st.pop();
         console.log(tmp);
         // st = [];
 
     } else {
         for(let i = 0; i < n; i++) {
             st.push(input[i]);
-            DFS(L + 1, sum + input[i]);
-            console.log("DFS 끝")
+            DFS(i + 1, sum + input[i]);
+            st.pop();
+            // st.pop();
+
+            // console.log("DFS 끝")
             // st = [];
         }
     }
